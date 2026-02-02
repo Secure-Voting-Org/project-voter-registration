@@ -1,19 +1,21 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ECILayout = ({ children, activeStep = 'A' }) => {
+    const navigate = useNavigate();
+
     const steps = [
-        { id: 'A', label: 'A. Select State, District & AC' },
-        { id: 'B', label: 'B. Personal Details' },
-        { id: 'C', label: 'C. Relatives Details' },
-        { id: 'D', label: 'D. Contact Details' },
-        { id: 'E', label: 'E. Aadhaar Details' },
-        { id: 'F', label: 'F. Gender' },
-        { id: 'G', label: 'G. Date of Birth details' },
-        { id: 'H', label: 'H. Present Address Details' },
-        { id: 'I', label: 'I. Disability Details' },
-        { id: 'J', label: 'J. Family member Details' },
-        { id: 'K', label: 'K. Declaration' },
-        { id: 'L', label: 'L. Captcha' },
+        { id: 'A', label: 'A. Select State, District & AC', path: '/identity' },
+        { id: 'B', label: 'B. Personal Details', path: '/personal-details' },
+        { id: 'C', label: 'C. Relatives Details', path: '/relatives-details' },
+        { id: 'D', label: 'D. Contact Details', path: '/contact-details' },
+        { id: 'E', label: 'E. Aadhaar Details', path: '/aadhaar-details' },
+        { id: 'F', label: 'F. Gender', path: '/gender-details' },
+        { id: 'G', label: 'G. Date of Birth details', path: '/dob-details' },
+        { id: 'H', label: 'H. Present Address Details', path: '/present-address-details' },
+        { id: 'I', label: 'I. Disability Details', path: '/disability-details' },
+        { id: 'J', label: 'J. Family member Details', path: '/family-details' },
+        { id: 'K', label: 'K. Declaration', path: '/declaration' },
+        { id: 'L', label: 'L. Captcha', path: '/captcha-details' },
     ];
 
     return (
@@ -37,13 +39,7 @@ const ECILayout = ({ children, activeStep = 'A' }) => {
                             <span className="text-gray-600 font-medium">English</span>
                             <svg className="w-4 h-4 ml-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                         </div>
-                        <div className="flex items-center space-x-2 text-gray-700">
-                            <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                            </div>
-                            <span className="font-semibold hidden md:block">User</span>
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
+
                     </div>
                 </div>
                 {/* Purple Bar */}
@@ -62,6 +58,7 @@ const ECILayout = ({ children, activeStep = 'A' }) => {
                             {steps.map((step) => (
                                 <button
                                     key={step.id}
+                                    onClick={() => navigate(step.path)}
                                     className={`w-full text-left px-4 py-3 text-xs font-medium transition-colors duration-200 flex items-center
                                         ${activeStep === step.id
                                             ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-500'
@@ -70,6 +67,19 @@ const ECILayout = ({ children, activeStep = 'A' }) => {
                                     {step.label}
                                 </button>
                             ))}
+                        </div>
+
+                        {/* Global Action Buttons in Sidebar */}
+                        <div className="p-4 bg-gray-50 border-t border-gray-200 space-y-3">
+                            <button className="w-full px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded hover:bg-blue-600 shadow-sm transition-colors">
+                                Preview and Submit
+                            </button>
+                            <button className="w-full px-4 py-2 bg-white border border-gray-300 text-gray-700 text-sm font-medium rounded hover:bg-gray-50 shadow-sm transition-colors">
+                                Save
+                            </button>
+                            <button className="w-full px-4 py-2 bg-white border border-blue-500 text-blue-500 text-sm font-medium rounded hover:bg-blue-50 shadow-sm transition-colors">
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </aside>
@@ -84,22 +94,13 @@ const ECILayout = ({ children, activeStep = 'A' }) => {
                                 <p className="text-sm font-semibold text-gray-700 mt-1">ELECTION COMMISSION OF INDIA</p>
                                 <p className="text-sm text-gray-600">Application Form for New Voters</p>
                             </div>
-                            <div className="flex space-x-2">
-                                <button className="text-blue-600 text-xs font-medium hover:underline flex items-center">
-                                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                                    Guidelines
-                                </button>
-                                <div className="border border-gray-300 rounded px-2 py-1 text-xs">
-                                    English
-                                </div>
-                            </div>
                         </div>
 
                         {children}
                     </div>
                 </main>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

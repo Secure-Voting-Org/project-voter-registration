@@ -1,134 +1,152 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import ECILayout from '../components/ECILayout';
 
 const IdentityCheck = () => {
-    const [aadhaar, setAadhaar] = useState('');
-    const [phone, setPhone] = useState('');
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-
-    const handleValidate = async (e) => {
-        e.preventDefault();
-        setError('');
-        setLoading(true);
-
-        if (!/^\d{12}$/.test(aadhaar)) {
-            setError('Aadhaar must be a 12-digit number');
-            setLoading(false);
-            return;
-        }
-        if (!/^\d{10}$/.test(phone)) {
-            setError('Phone must be a 10-digit number');
-            setLoading(false);
-            return;
-        }
-
-        try {
-            const response = await axios.post('http://localhost:5000/api/registration/validate', {
-                aadhaar,
-                phone
-            });
-
-            if (response.data.success) {
-                navigate('/face-enroll', {
-                    state: {
-                        aadhaar,
-                        name: response.data.name,
-                        constituency: response.data.constituency
-                    }
-                });
-            }
-        } catch (err) {
-            setError(err.response?.data?.error || 'Validation failed. Please try again.');
-        } finally {
-            setLoading(false);
-        }
-    };
+    const [constituencyType, setConstituencyType] = useState('assemby'); // 'assembly' or 'parliamentary'
 
     return (
         <ECILayout activeStep="A">
             {/* Section A: Header */}
             <div className="bg-blue-50 border border-blue-100 p-3 rounded-t-sm mb-4">
-                <h3 className="text-sm font-bold text-gray-800">A. Identity Verification / पहचान सत्यापन</h3>
-                <p className="text-xs text-gray-500 mt-1">Please enter your details as per Aadhaar Card. / कृपया आधार कार्ड के अनुसार अपना विवरण दर्ज करें।</p>
+                <h3 className="text-sm font-bold text-gray-800">A. Select State, District & Assembly/Parliamentary Constituency</h3>
+            </div>
+
+            <div className="mb-4 text-sm text-gray-700">
+                <p>To,</p>
+                <p>The Electoral Registration Officer,</p>
             </div>
 
             {/* Form Content */}
-            <form onSubmit={handleValidate} className="space-y-6">
+            <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                    {/* Aadhaar Input */}
+                    {/* State */}
                     <div>
                         <label className="block text-xs font-semibold text-gray-700 mb-1">
-                            Aadhaar Number <span className="text-red-500">*</span>
+                            State <span className="text-red-500">*</span>
                         </label>
-                        <input
-                            type="text"
-                            maxLength="12"
-                            value={aadhaar}
-                            onChange={(e) => setAadhaar(e.target.value.replace(/\D/g, ''))}
-                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 transition-shadow bg-white"
-                            placeholder="Enter 12-digit Aadhaar Number"
-                        />
-                        <p className="text-[10px] text-gray-400 mt-1">Unique Identification Number issued by UIDAI</p>
+                        <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
+                            <option>Select State</option>
+                            <option>Andhra Pradesh</option>
+                            <option>Telangana</option>
+                            <option>Karnataka</option>
+                        </select>
                     </div>
 
-                    {/* Phone Input */}
+                    {/* District */}
                     <div>
                         <label className="block text-xs font-semibold text-gray-700 mb-1">
-                            Mobile Number <span className="text-red-500">*</span>
+                            District
                         </label>
-                        <div className="flex">
-                            <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-100 border border-r-0 border-gray-300 rounded-l-md">
-                                +91
-                            </span>
+                        <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
+                            <option>Select District</option>
+                            <option>Chittoor</option>
+                            <option>Kadapa</option>
+                            <option>Guntur</option>
+                        </select>
+                    </div>
+                </div>
+
+                {/* Assembly Constituency Selection */}
+                <div className="mt-4">
+                    <div className="flex items-center mb-2">
+                        <input
+                            type="radio"
+                            id="assembly"
+                            name="constituencyType"
+                            checked={constituencyType === 'assembly'}
+                            onChange={() => setConstituencyType('assembly')}
+                            className="mr-2"
+                        />
+                        <label htmlFor="assembly" className="text-sm font-medium text-gray-700">
+                            No. & Name of Assembly Constituency<span className="text-red-500">*</span>
+                        </label>
+                    </div>
+
+                    <div className="flex gap-4 pl-6">
+                        <div className="w-24">
                             <input
                                 type="text"
-                                maxLength="10"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                                className="w-full border border-gray-300 rounded-r px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 transition-shadow bg-white"
-                                placeholder="Enter 10-digit Mobile Number"
+                                placeholder="No."
+                                disabled={constituencyType !== 'assembly'}
+                                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50"
                             />
                         </div>
-                        <p className="text-[10px] text-gray-400 mt-1">Number linked with Aadhaar is recommended</p>
+                        <div className="flex-1">
+                            <select
+                                disabled={constituencyType !== 'assembly'}
+                                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white"
+                            >
+                                <option>Select AC</option>
+                                <option>Kuppam</option>
+                                <option>Pulivendula</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
-                {/* Error Box */}
-                {error && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative text-sm" role="alert">
-                        <strong className="font-bold">Error: </strong>
-                        <span className="block sm:inline">{error}</span>
-                    </div>
-                )}
+                <div className="text-center text-sm text-gray-500 my-2">Or</div>
 
-                {/* Disclaimer Text */}
-                <div className="text-xs text-gray-500 italic mt-4 bg-yellow-50 p-2 border border-yellow-100 rounded">
-                    ** I submit application for inclusion of my name in the electoral roll for the above constituency. I declare that I am a citizen of India.
+                {/* Parliamentary Constituency Selection */}
+                <div>
+                    <div className="flex items-center mb-2">
+                        <input
+                            type="radio"
+                            id="parliamentary"
+                            name="constituencyType"
+                            checked={constituencyType === 'parliamentary'}
+                            onChange={() => setConstituencyType('parliamentary')}
+                            className="mr-2"
+                        />
+                        <label htmlFor="parliamentary" className="text-sm font-medium text-gray-700">
+                            No. & Name of Parliamentary Constituency<span className="text-red-500">*</span>
+                        </label>
+                    </div>
+                    <div className="ml-6 text-xs text-gray-500 mb-2">
+                        (@Only for Union Territories not having Legislative Assembly)
+                    </div>
+
+                    <div className="flex gap-4 pl-6">
+                        <div className="w-24">
+                            <input
+                                type="text"
+                                placeholder="No."
+                                disabled={constituencyType !== 'parliamentary'}
+                                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50"
+                            />
+                        </div>
+                        <div className="flex-1">
+                            <select
+                                disabled={constituencyType !== 'parliamentary'}
+                                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white"
+                            >
+                                <option>Select PC</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Footer / Buttons */}
-                <div className="flex justify-end gap-3 pt-6 border-t border-gray-100 mt-6">
+                {/* Warning Text */}
+                <div className="text-xs text-red-500 mt-6 font-medium">
+                    ** Please enter the Name as per your Aadhaar Card and ensure the Mobile Number linked with Aadhaar is with you for submitting the form for OTP verification and eSign.
+                </div>
+
+                {/* Disclaimer */}
+                <div className="text-xs text-gray-600 mt-2">
+                    I submit application for inclusion of my name in the electoral roll for the above constituency.
+                </div>
+
+                <hr className="my-6 border-gray-200" />
+
+                {/* Footer Buttons */}
+                <div className="flex justify-end items-center pt-2">
                     <button
                         type="button"
-                        onClick={() => setAadhaar('') || setPhone('')}
-                        className="px-6 py-2 border border-gray-300 text-gray-700 font-medium text-sm rounded hover:bg-gray-50 transition-colors"
+                        onClick={() => navigate('/personal-details')}
+                        className="px-6 py-2 bg-blue-400 text-white text-sm font-medium rounded hover:bg-blue-500 transition-colors"
                     >
-                        Clear
-                    </button>
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className={`px-6 py-2 text-white font-medium text-sm rounded shadow-sm transition-all
-                            ${loading
-                                ? 'bg-blue-400 cursor-not-allowed'
-                                : 'bg-blue-600 hover:bg-blue-700 hover:shadow-md'}`}
-                    >
-                        {loading ? 'Verifying...' : 'Next >'}
+                        Next &darr;
                     </button>
                 </div>
             </form>
