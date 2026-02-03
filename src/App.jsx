@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
+import Dashboard from './pages/Dashboard';
+import TrackStatus from './pages/TrackStatus';
 import IdentityCheck from './pages/IdentityCheck';
 import PersonalDetails from './pages/PersonalDetails';
 import RelativesDetails from './pages/RelativesDetails';
@@ -20,6 +22,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/track-status" element={<TrackStatus />} />
         <Route path="/identity" element={<IdentityCheck />} />
         <Route path="/personal-details" element={<PersonalDetails />} />
         <Route path="/relatives-details" element={<RelativesDetails />} />

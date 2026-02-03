@@ -1,4 +1,6 @@
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 
 const ECILayout = ({ children, activeStep = 'A' }) => {
     const navigate = useNavigate();
@@ -20,31 +22,7 @@ const ECILayout = ({ children, activeStep = 'A' }) => {
 
     return (
         <div className="min-h-screen bg-gray-100 font-sans text-sm">
-            {/* Header */}
-            <header className="bg-white shadow-sm border-b border-gray-200">
-                <div className="container mx-auto px-4 py-2 flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                        {/* ECI Logo Placeholder */}
-                        <div className="w-10 h-10 bg-gradient-to-r from-orange-500 via-white to-green-500 rounded-full flex items-center justify-center border border-gray-300 shadow-sm">
-                            <span className="font-bold text-xs text-gray-700">ECI</span>
-                        </div>
-                        <div>
-                            <h1 className="text-lg font-bold text-purple-900 leading-tight">ECINet</h1>
-                            <p className="text-xs text-purple-700 font-semibold tracking-wide">VOTERS' SERVICE PORTAL</p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-center space-x-4">
-                        <div className="flex items-center bg-gray-100 rounded px-2 py-1 cursor-pointer hover:bg-gray-200">
-                            <span className="text-gray-600 font-medium">English</span>
-                            <svg className="w-4 h-4 ml-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
-
-                    </div>
-                </div>
-                {/* Purple Bar */}
-                <div className="h-1 bg-purple-700 w-full"></div>
-            </header>
+            <Header />
 
             <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row gap-6">
                 {/* Sidebar Navigation */}
