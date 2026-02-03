@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
 
 const FamilyMemberDetails = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     // Family Member State
     const [familyName, setFamilyName] = useState('');
@@ -82,7 +83,7 @@ const FamilyMemberDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/declaration')}
+                        onClick={() => navigate('/declaration', { state })}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

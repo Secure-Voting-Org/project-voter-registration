@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
 
 const Declaration = () => {
     const navigate = useNavigate();
+    const { state: locationState } = useLocation();
 
     // Declaration State
     const [village, setVillage] = useState('');
@@ -122,7 +123,7 @@ const Declaration = () => {
                 </button>
                 <button
                     type="button"
-                    onClick={() => navigate('/captcha-details')}
+                    onClick={() => navigate('/captcha-details', { state: locationState })}
                     className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                 >
                     &darr; Next

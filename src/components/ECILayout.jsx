@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 
 const ECILayout = ({ children, activeStep = 'A' }) => {
     const navigate = useNavigate();
+    const { state } = useLocation();
 
     const steps = [
         { id: 'A', label: 'A. Select State, District & AC', path: '/identity' },
@@ -18,6 +19,7 @@ const ECILayout = ({ children, activeStep = 'A' }) => {
         { id: 'J', label: 'J. Family member Details', path: '/family-details' },
         { id: 'K', label: 'K. Declaration', path: '/declaration' },
         { id: 'L', label: 'L. Captcha', path: '/captcha-details' },
+        { id: 'M', label: 'M. Face Registration', path: '/face-enroll' },
     ];
 
     return (
@@ -36,7 +38,7 @@ const ECILayout = ({ children, activeStep = 'A' }) => {
                             {steps.map((step) => (
                                 <button
                                     key={step.id}
-                                    onClick={() => navigate(step.path)}
+                                    onClick={() => navigate(step.path, { state })}
                                     className={`w-full text-left px-4 py-3 text-xs font-medium transition-colors duration-200 flex items-center
                                         ${activeStep === step.id
                                             ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-500'

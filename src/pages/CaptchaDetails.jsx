@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
 
 const CaptchaDetails = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
     const [captcha, setCaptcha] = useState('');
 
     return (
@@ -55,9 +56,10 @@ const CaptchaDetails = () => {
                 <div className="flex flex-wrap gap-4 items-center">
                     <button
                         type="button"
+                        onClick={() => navigate('/face-enroll', { state: { ...state, fromCaptcha: true } })}
                         className="px-6 py-2 bg-blue-500 text-white font-medium text-sm rounded hover:bg-blue-600 shadow-sm transition-colors"
                     >
-                        Preview and Submit
+                        Proceed to Face Registration
                     </button>
                     <button
                         type="button"

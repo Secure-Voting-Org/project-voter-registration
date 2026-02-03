@@ -5,7 +5,13 @@ import axios from 'axios';
 import ECILayout from '../components/ECILayout';
 
 const FaceEnrollment = () => {
-    const { state } = useLocation();
+    const { state: locationState } = useLocation();
+    // Fallback state for testing/development if accessed directly
+    const state = locationState || {
+        aadhaar: 'TEST_AADHAAR_123',
+        name: 'Test Applicant',
+        constituency: 'Test Constituency'
+    };
     const navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState('');
@@ -37,14 +43,14 @@ const FaceEnrollment = () => {
         }
     };
 
-    if (!state) return <div className="p-10 text-center">Unauthorized Access. <a href="/" className="text-blue-600">Go Home</a></div>;
+    // if (!state) return <div className="p-10 text-center">Unauthorized Access. <a href="/" className="text-blue-600">Go Home</a></div>;
 
     return (
-        <ECILayout activeStep="B">
+        <ECILayout activeStep="M">
             {/* Section Header */}
             <div className="bg-blue-50 border border-blue-100 p-3 rounded-t-sm mb-4">
-                <h3 className="text-sm font-bold text-gray-800">B. Personal Details (Biometrics) / व्यक्तिगत विवरण (बायोमेट्रिक्स)</h3>
-                <p className="text-xs text-gray-500 mt-1">Face verification required for detailed registration.</p>
+                <h3 className="text-sm font-bold text-gray-800">M. Face Registration / चेहरा पंजीकरण</h3>
+                <p className="text-xs text-gray-500 mt-1">Final step: Biometric verification required for voter card generation.</p>
             </div>
 
             <div className="flex flex-col items-center py-6">
