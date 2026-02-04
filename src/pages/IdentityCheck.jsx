@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
 import { locationData } from '../data/locationData';
@@ -214,7 +215,7 @@ const IdentityCheck = () => {
                     </button>
                 </div>
             </form>
-        </ECILayout>
+        </ECILayout >
     );
 };
 

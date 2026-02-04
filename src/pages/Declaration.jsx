@@ -127,6 +127,7 @@ const Declaration = () => {
                 >
                     &uarr; Previous
                 </button>
+
                 <button
                     type="button"
                     onClick={() => navigate('/captcha-details')}

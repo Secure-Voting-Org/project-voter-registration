@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
 
@@ -80,7 +81,11 @@ const RelativesDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/contact-details')} // Proceed to Next Step
+                        onClick={() => {
+                            const fullRelativeName = `${relativeName} ${relativeSurname}`.trim();
+                            updateFormData({ relativeName: fullRelativeName, relativeType: relationType });
+                            navigate('/contact-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

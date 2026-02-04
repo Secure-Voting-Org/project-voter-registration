@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { RegistrationProvider } from './context/RegistrationContext';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import TrackStatus from './pages/TrackStatus';

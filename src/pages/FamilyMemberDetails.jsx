@@ -77,6 +77,7 @@ const FamilyMemberDetails = () => {
                     >
                         &uarr; Previous
                     </button>
+
                     <button
                         type="button"
                         onClick={() => navigate('/declaration')}
