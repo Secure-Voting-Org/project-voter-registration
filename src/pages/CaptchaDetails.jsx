@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const CaptchaDetails = () => {
     const navigate = useNavigate();
-    const { state } = useLocation();
-    const [captcha, setCaptcha] = useState('');
+    const { formData, updateFormData } = useFormContext();
 
     return (
         <ECILayout activeStep="L">
@@ -33,8 +33,8 @@ const CaptchaDetails = () => {
                     <input
                         type="text"
                         placeholder="Enter Captcha"
-                        value={captcha}
-                        onChange={(e) => setCaptcha(e.target.value)}
+                        value={formData.captcha}
+                        onChange={(e) => updateFormData({ captcha: e.target.value })}
                         className="w-full border border-gray-300 rounded px-3 py-2 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                 </div>
@@ -56,7 +56,7 @@ const CaptchaDetails = () => {
                 <div className="flex flex-wrap gap-4 items-center">
                     <button
                         type="button"
-                        onClick={() => navigate('/face-enroll', { state: { ...state, fromCaptcha: true } })}
+                        onClick={() => navigate('/face-enroll')}
                         className="px-6 py-2 bg-blue-500 text-white font-medium text-sm rounded hover:bg-blue-600 shadow-sm transition-colors"
                     >
                         Proceed to Face Registration

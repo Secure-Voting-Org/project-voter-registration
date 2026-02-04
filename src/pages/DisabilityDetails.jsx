@@ -1,34 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const DisabilityDetails = () => {
     const navigate = useNavigate();
-
-    // Disability Category State
-    const [categories, setCategories] = useState({
-        locomotive: false,
-        visual: false,
-        deafDumb: false,
-        other: false
-    });
-    const [otherSpecification, setOtherSpecification] = useState('');
-
-    // Percentage
-    const [percentage, setPercentage] = useState('');
-
-    // Certificate State
-    const [certificateAttached, setCertificateAttached] = useState(''); // 'yes' or 'no'
-    const [selectedFile, setSelectedFile] = useState(null);
+    const { formData, updateFormData, handleFileChange } = useFormContext();
 
     const handleCategoryChange = (key) => {
-        setCategories(prev => ({ ...prev, [key]: !prev[key] }));
-    };
-
-    const handleFileChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            setSelectedFile(e.target.files[0]);
-        }
+        updateFormData({
+            disabilityCategories: {
+                ...formData.disabilityCategories,
+                [key]: !formData.disabilityCategories[key]
+            }
+        });
     };
 
     return (
@@ -49,7 +34,7 @@ const DisabilityDetails = () => {
                         <label className="flex items-center space-x-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={categories.locomotive}
+                                checked={formData.disabilityCategories.locomotive}
                                 onChange={() => handleCategoryChange('locomotive')}
                                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                             />
@@ -59,7 +44,7 @@ const DisabilityDetails = () => {
                         <label className="flex items-center space-x-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={categories.visual}
+                                checked={formData.disabilityCategories.visual}
                                 onChange={() => handleCategoryChange('visual')}
                                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                             />
@@ -69,7 +54,7 @@ const DisabilityDetails = () => {
                         <label className="flex items-center space-x-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={categories.deafDumb}
+                                checked={formData.disabilityCategories.deafDumb}
                                 onChange={() => handleCategoryChange('deafDumb')}
                                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                             />
@@ -82,7 +67,7 @@ const DisabilityDetails = () => {
                         <label className="flex items-center space-x-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={categories.other}
+                                checked={formData.disabilityCategories.other}
                                 onChange={() => handleCategoryChange('other')}
                                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                             />
@@ -91,23 +76,23 @@ const DisabilityDetails = () => {
                         <input
                             type="text"
                             placeholder="Other Disability"
-                            value={otherSpecification}
-                            onChange={(e) => setOtherSpecification(e.target.value)}
-                            disabled={!categories.other}
-                            className={`border border-gray-300 rounded px-3 py-1 text-sm bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 ${!categories.other ? 'opacity-60 cursor-not-allowed' : ''}`}
+                            value={formData.disabilityOtherSpec}
+                            onChange={(e) => updateFormData({ disabilityOtherSpec: e.target.value })}
+                            disabled={!formData.disabilityCategories.other}
+                            className={`border border-gray-300 rounded px-3 py-1 text-sm bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 ${!formData.disabilityCategories.other ? 'opacity-60 cursor-not-allowed' : ''}`}
                         />
                     </div>
 
                     {/* Percentage */}
-                    <div className="mt-4">
+                    <div className="space-y-4">
                         <label className="block text-sm font-bold text-gray-800 mb-1">
                             Percentage of<br />disability
                         </label>
                         <div className="flex items-center gap-2">
                             <input
                                 type="text"
-                                value={percentage}
-                                onChange={(e) => setPercentage(e.target.value)}
+                                value={formData.disabilityPercentage}
+                                onChange={(e) => updateFormData({ disabilityPercentage: e.target.value })}
                                 className="w-16 border border-gray-300 rounded px-2 py-1 bg-gray-100 text-center focus:outline-none focus:ring-1 focus:ring-blue-500"
                             />
                             <span className="text-sm text-gray-800">%</span>
@@ -116,54 +101,38 @@ const DisabilityDetails = () => {
                 </div>
 
                 {/* Certificate Attached */}
-                <div className="space-y-2">
-                    <label className="block text-sm font-bold text-gray-800">
-                        Certificate Attached
-                    </label>
-                    <div className="flex gap-12">
-                        <label className="flex items-center space-x-2 cursor-pointer">
-                            <input
-                                type="radio"
-                                name="certificate"
-                                value="yes"
-                                checked={certificateAttached === 'yes'}
-                                onChange={() => setCertificateAttached('yes')}
-                                className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                            />
-                            <span className="text-sm text-gray-700">Yes</span>
-                        </label>
-                        <label className="flex items-center space-x-2 cursor-pointer">
-                            <input
-                                type="radio"
-                                name="certificate"
-                                value="no"
-                                checked={certificateAttached === 'no'}
-                                onChange={() => setCertificateAttached('no')}
-                                className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-                            />
-                            <span className="text-sm text-gray-700">No</span>
-                        </label>
-                    </div>
-                </div>
+                <div className="space-y-4">
+                    <p className="text-sm font-bold text-gray-800">
+                        (b) Certificate (If prescribed percentage of disability) <span className="text-red-600">*</span>
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select
+                            value={formData.disabilityCertificateAttached}
+                            onChange={(e) => updateFormData({ disabilityCertificateAttached: e.target.value })} // 'yes' | 'no'
+                            className="border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 h-fit"
+                        >
+                            <option value="">Select Option</option>
+                            <option value="yes">Yes, Attached</option>
+                            <option value="no">No</option>
+                        </select>
 
-                {/* File Upload */}
-                <div className="space-y-2 pt-2">
-                    <label className="block text-sm font-bold text-gray-800 leading-relaxed">
-                        Disability Certificate (Document size maximum 2MB,.jpg,.png,.pdf)
-                    </label>
-                    <div className="flex items-center">
-                        <label className="flex items-center border border-gray-300 rounded bg-gray-100 px-3 py-1 cursor-pointer hover:bg-gray-200 transition-colors">
-                            <span className="text-sm text-gray-700">Choose File</span>
-                            <input
-                                type="file"
-                                accept=".jpg,.png,.pdf"
-                                onChange={handleFileChange}
-                                className="hidden"
-                            />
-                        </label>
-                        <span className="ml-3 text-sm text-gray-600">
-                            {selectedFile ? selectedFile.name : 'No file chosen'}
-                        </span>
+                        {formData.disabilityCertificateAttached === 'yes' && (
+                            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:bg-gray-50 transition-colors cursor-pointer relative">
+                                <input
+                                    type="file"
+                                    accept=".pdf,.jpg,.jpeg,.png"
+                                    onChange={(e) => handleFileChange(e, 'disabilityFile')}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                                {formData.disabilityFile ? (
+                                    <div className="text-sm text-green-600 font-medium">Document Uploaded (Ready)</div>
+                                ) : (
+                                    <div className="space-y-1">
+                                        <p className="text-sm text-gray-500">Upload Certificate</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
 

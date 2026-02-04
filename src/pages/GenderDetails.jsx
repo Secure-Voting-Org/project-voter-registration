@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const GenderDetails = () => {
     const navigate = useNavigate();
-    const [gender, setGender] = useState('');
+    const { formData, updateFormData } = useFormContext();
 
     return (
         <ECILayout activeStep="F">
@@ -25,8 +26,8 @@ const GenderDetails = () => {
                                 type="radio"
                                 name="gender"
                                 value="Male"
-                                checked={gender === 'Male'}
-                                onChange={(e) => setGender(e.target.value)}
+                                checked={formData.gender === 'Male'}
+                                onChange={(e) => updateFormData({ gender: e.target.value })}
                                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                             />
                             <span className="text-sm text-gray-700">Male</span>
@@ -37,8 +38,8 @@ const GenderDetails = () => {
                                 type="radio"
                                 name="gender"
                                 value="Female"
-                                checked={gender === 'Female'}
-                                onChange={(e) => setGender(e.target.value)}
+                                checked={formData.gender === 'Female'}
+                                onChange={(e) => updateFormData({ gender: e.target.value })}
                                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                             />
                             <span className="text-sm text-gray-700">Female</span>
@@ -49,8 +50,8 @@ const GenderDetails = () => {
                                 type="radio"
                                 name="gender"
                                 value="Third Gender"
-                                checked={gender === 'Third Gender'}
-                                onChange={(e) => setGender(e.target.value)}
+                                checked={formData.gender === 'Third Gender'}
+                                onChange={(e) => updateFormData({ gender: e.target.value })}
                                 className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                             />
                             <span className="text-sm text-gray-700">Third Gender</span>

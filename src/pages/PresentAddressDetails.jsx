@@ -1,61 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
+import { locationData } from '../data/locationData';
+
+const TransliterationInput = ({ label, value, onChange, required = false }) => (
+    <div className="space-y-3">
+        <label className="block text-sm font-bold text-gray-800">
+            {label} {required && <span className="text-red-500">*</span>}
+        </label>
+        <input
+            type="text"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-colors"
+        />
+    </div>
+);
 
 const PresentAddressDetails = () => {
     const navigate = useNavigate();
+    const { formData, updateFormData, handleFileChange } = useFormContext();
 
-    // Address State
-    const [addressData, setAddressData] = useState({
-        houseNo: '',
-        streetClass: '', // Street/Area/Locality...
-        village: '',
-        postOffice: '',
-        pinCode: '',
-        tehsil: '',
-        district: '',
-        state: ''
-    });
 
-    // Document State
-    const [documentType, setDocumentType] = useState('proof'); // 'proof' or 'other'
-    const [selectedDoc, setSelectedDoc] = useState('');
-    const [otherDocSpec, setOtherDocSpec] = useState('');
-    const [selectedFile, setSelectedFile] = useState(null);
-
-    const handleInputChange = (field, value) => {
-        setAddressData(prev => ({ ...prev, [field]: value }));
-    };
-
-    const handleFileChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            setSelectedFile(e.target.files[0]);
-        }
-    };
-
-    const TransliterationInput = ({ label, value, onChange, required = false }) => (
-        <div className="space-y-3">
-            <label className="block text-sm font-bold text-gray-800">
-                {label} {required && <span className="text-red-500">*</span>}
-            </label>
-            <input
-                type="text"
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-colors"
-            />
-            <div className="relative">
-                <input
-                    type="text"
-                    disabled
-                    className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 cursor-not-allowed"
-                />
-                <div className="absolute right-3 top-2.5 text-gray-500">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd"></path></svg>
-                </div>
-            </div>
-        </div>
-    );
 
     return (
         <ECILayout activeStep="H">
@@ -71,27 +38,27 @@ const PresentAddressDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <TransliterationInput
                             label="House/Building/ Apartment No"
-                            value={addressData.houseNo}
-                            onChange={(val) => handleInputChange('houseNo', val)}
+                            value={formData.houseNo}
+                            onChange={(val) => updateFormData({ houseNo: val })}
                             required
                         />
                         <TransliterationInput
                             label="Street/Area/Locality/Mohalla/Road"
-                            value={addressData.streetClass}
-                            onChange={(val) => handleInputChange('streetClass', val)}
+                            value={formData.streetClass}
+                            onChange={(val) => updateFormData({ streetClass: val })}
                             required
                         />
                         <TransliterationInput
                             label="Village/Town"
-                            value={addressData.village}
-                            onChange={(val) => handleInputChange('village', val)}
+                            value={formData.village}
+                            onChange={(val) => updateFormData({ village: val })}
                             required
                         />
 
                         <TransliterationInput
                             label="Post Office"
-                            value={addressData.postOffice}
-                            onChange={(val) => handleInputChange('postOffice', val)}
+                            value={formData.postOffice}
+                            onChange={(val) => updateFormData({ postOffice: val })}
                             required
                         />
 
@@ -102,8 +69,8 @@ const PresentAddressDetails = () => {
                             </label>
                             <input
                                 type="text"
-                                value={addressData.pinCode}
-                                onChange={(e) => handleInputChange('pinCode', e.target.value)}
+                                value={formData.pinCode}
+                                onChange={(e) => updateFormData({ pinCode: e.target.value })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-colors"
                             />
                             {/* Empty div to align grid if needed, or just leave as single input */}
@@ -111,38 +78,51 @@ const PresentAddressDetails = () => {
 
                         <TransliterationInput
                             label="Tehsil/Taluqa/Mandal"
-                            value={addressData.tehsil}
-                            onChange={(val) => handleInputChange('tehsil', val)}
+                            value={formData.tehsil}
+                            onChange={(val) => updateFormData({ tehsil: val })}
                             required
                         />
                     </div>
 
                     {/* District & State Dropdowns */}
+                    {/* District & State Dropdowns */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                        <div className="space-y-2">
-                            <label className="block text-sm font-bold text-gray-800">
-                                District <span className="text-red-500">*</span>
-                            </label>
-                            <select
-                                value={addressData.district}
-                                onChange={(e) => handleInputChange('district', e.target.value)}
-                                className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                            >
-                                <option value="">Select District</option>
-                                <option value="dist1">District 1</option>
-                            </select>
-                        </div>
                         <div className="space-y-2">
                             <label className="block text-sm font-bold text-gray-800">
                                 State/UT <span className="text-red-500">*</span>
                             </label>
                             <select
-                                value={addressData.state}
-                                onChange={(e) => handleInputChange('state', e.target.value)}
+                                value={formData.addressState}
+                                onChange={(e) => updateFormData({ addressState: e.target.value, addressDistrict: '' })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             >
                                 <option value="">Select State</option>
-                                <option value="state1">Andhra Pradesh</option>
+                                {Object.keys(locationData).map((state) => (
+                                    <option key={state} value={state}>
+                                        {state}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="block text-sm font-bold text-gray-800">
+                                District <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                value={formData.addressDistrict}
+                                onChange={(e) => updateFormData({ addressDistrict: e.target.value })}
+                                disabled={!formData.addressState}
+                                className={`w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 ${!formData.addressState ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                                <option value="">Select District</option>
+                                {formData.addressState && locationData[formData.addressState]?.districts &&
+                                    Object.keys(locationData[formData.addressState].districts).map((dist) => (
+                                        <option key={dist} value={dist}>
+                                            {dist}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -163,18 +143,18 @@ const PresentAddressDetails = () => {
                                     type="radio"
                                     name="docType"
                                     value="proof"
-                                    checked={documentType === 'proof'}
-                                    onChange={() => setDocumentType('proof')}
+                                    checked={formData.addressProofType === 'proof'}
+                                    onChange={() => updateFormData({ addressProofType: 'proof' })}
                                     className="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                 />
                                 <span className="text-sm text-gray-700">Document for Proof of Residence</span>
                             </label>
 
                             <select
-                                value={selectedDoc}
-                                onChange={(e) => setSelectedDoc(e.target.value)}
-                                disabled={documentType !== 'proof'}
-                                className={`w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 ${documentType !== 'proof' ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                value={formData.addressSelectedDoc}
+                                onChange={(e) => updateFormData({ addressSelectedDoc: e.target.value })}
+                                disabled={formData.addressProofType !== 'proof'}
+                                className={`w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 ${formData.addressProofType !== 'proof' ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 <option value="">Select Document</option>
                                 <option value="aadhaar">Aadhaar Card</option>
@@ -191,8 +171,8 @@ const PresentAddressDetails = () => {
                                     type="radio"
                                     name="docType"
                                     value="other"
-                                    checked={documentType === 'other'}
-                                    onChange={() => setDocumentType('other')}
+                                    checked={formData.addressProofType === 'other'}
+                                    onChange={() => updateFormData({ addressProofType: 'other' })}
                                     className="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                 />
                                 <span className="text-sm text-gray-700">
@@ -202,35 +182,39 @@ const PresentAddressDetails = () => {
 
                             <input
                                 type="text"
-                                value={otherDocSpec}
-                                onChange={(e) => setOtherDocSpec(e.target.value)}
-                                disabled={documentType !== 'other'}
-                                className={`w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 ${documentType !== 'other' ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                value={formData.addressOtherDocSpec}
+                                onChange={(e) => updateFormData({ addressOtherDocSpec: e.target.value })}
+                                disabled={formData.addressProofType !== 'other'}
+                                className={`w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 ${formData.addressProofType !== 'other' ? 'opacity-50 cursor-not-allowed' : ''}`}
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* File Upload */}
-                <div className="space-y-2 pt-2">
-                    <label className="block text-sm font-bold text-gray-800 leading-relaxed">
-                        Proof of Residence (Document size maximum 2MB,.jpg,.png,.pdf) <span className="text-red-500">*</span>
-                    </label>
-                    <div className="flex items-center">
-                        <label className="flex items-center border border-gray-300 rounded bg-gray-100 px-3 py-1 cursor-pointer hover:bg-gray-200 transition-colors">
-                            <span className="text-sm text-gray-700">Choose File</span>
-                            <input
-                                type="file"
-                                accept=".jpg,.png,.pdf"
-                                onChange={handleFileChange}
-                                className="hidden"
-                            />
-                        </label>
-                        <span className="ml-3 text-sm text-gray-600">
-                            {selectedFile ? selectedFile.name : 'No file chosen'}
-                        </span>
+                <div className="space-y-4">
+                    <p className="text-sm font-bold text-gray-800">
+                        (b) Self-attested copy of address proof either in the name of applicant or any one of parents/spouse/adult child included in the electoral roll at the same address <span className="text-red-600">*</span>
+                    </p>
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer relative">
+                        <input
+                            type="file"
+                            accept=".pdf,.jpg,.jpeg,.png"
+                            onChange={(e) => handleFileChange(e, 'addressProofFile')}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        {formData.addressProofFile ? (
+                            <div className="text-sm text-green-600 font-medium">Document Uploaded (Ready)</div>
+                        ) : (
+                            <div className="space-y-2">
+                                <svg className="mx-auto h-10 w-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p className="text-sm text-gray-500">Click to upload or drag and drop</p>
+                                <p className="text-xs text-gray-400">PDF, JPG, PNG (Max 2MB)</p>
+                            </div>
+                        )}
                     </div>
                 </div>
+
 
                 <hr className="my-8 border-gray-200" />
 

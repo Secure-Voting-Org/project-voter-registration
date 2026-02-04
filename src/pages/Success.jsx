@@ -1,46 +1,71 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import ECILayout from '../components/ECILayout';
 
 const Success = () => {
-    const { state } = useLocation();
     const navigate = useNavigate();
+    const location = useLocation();
+    const { voterId, referenceId, name } = location.state || {};
 
-    // Prevent direct access
-    if (!state?.voterId) {
+    // Prevent direct access if no state
+    if (!voterId) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <button onClick={() => navigate('/')} className="text-blue-600 underline">Return to Home</button>
+            <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50">
+                <p className="text-gray-600 mb-4">No submission data found.</p>
+                <button
+                    onClick={() => navigate('/')}
+                    className="text-white bg-blue-600 px-6 py-2 rounded hover:bg-blue-700"
+                >
+                    Return to Home
+                </button>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-green-50 flex flex-col items-center justify-center p-6 text-center">
-            <div className="bg-white p-10 rounded-2xl shadow-xl border-t-8 border-green-500 max-w-lg w-full">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+        <ECILayout activeStep="Success">
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
+                <div className="bg-green-100 p-4 rounded-full mb-6">
+                    <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
                 </div>
 
-                <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Registration Successful!</h1>
-                <p className="text-gray-600 mb-8">You are now a registered voter.</p>
+                <h2 className="text-3xl font-bold text-gray-800 mb-4">Application Submitted!</h2>
 
-                <div className="bg-gray-50 p-6 rounded-xl border border-dashed border-gray-300 mb-8">
-                    <p className="text-sm text-gray-500 uppercase tracking-widest font-semibold mb-1">Your Voter ID</p>
-                    <p className="text-4xl font-mono font-bold text-gray-800 break-all">{state.voterId}</p>
+                <p className="text-gray-600 mb-8 max-w-md">
+                    Thank you, <span className="font-bold text-gray-800">{name || 'User'}</span>. Your application for voter registration has been submitted.
+                </p>
+
+                <div className="grid gap-4 w-full max-w-md mb-8">
+                    <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                        <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Application Reference ID</p>
+                        <p className="text-2xl font-mono font-bold text-purple-600 select-all">{referenceId || 'N/A'}</p>
+                        <p className="text-xs text-gray-400 mt-1">Use this to track your application status.</p>
+                    </div>
+
+                    <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
+                        <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Voter ID</p>
+                        <p className="text-xl font-mono font-bold text-gray-800 select-all">{voterId}</p>
+                    </div>
                 </div>
 
-                <div className="bg-blue-50 p-4 rounded-lg mb-8 text-blue-800 text-sm">
-                    <strong>Note:</strong> Please save your Voter ID. You will need it, along with your face scan, to cast your vote.
+                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
+                    <button
+                        onClick={() => navigate('/track-status')}
+                        className="flex-1 px-6 py-3 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-700 shadow-sm transition-colors"
+                    >
+                        Track Status
+                    </button>
+                    <button
+                        onClick={() => navigate('/')}
+                        className="flex-1 px-6 py-3 bg-white border border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-50 transition-colors"
+                    >
+                        Back to Home
+                    </button>
                 </div>
-
-                <button
-                    onClick={() => navigate('/')}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors"
-                >
-                    Return to Home
-                </button>
             </div>
-        </div>
+        </ECILayout>
     );
 };
 

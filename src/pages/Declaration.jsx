@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
+import { locationData } from '../data/locationData';
 
 const Declaration = () => {
     const navigate = useNavigate();
-    const { state: locationState } = useLocation();
-
-    // Declaration State
-    const [village, setVillage] = useState('');
-    const [state, setState] = useState('');
-    const [district, setDistrict] = useState('');
-    const [residenceDate, setResidenceDate] = useState('');
-    const [place, setPlace] = useState('');
-    const [date, setDate] = useState('01 | 02 | 2026'); // Pre-filled or current date
+    const { formData, updateFormData } = useFormContext();
+    const [date] = useState('01 | 02 | 2026'); // Static date for now
 
     return (
         <ECILayout activeStep="K">
@@ -32,31 +27,42 @@ const Declaration = () => {
                             <label className="block text-xs font-bold text-red-600">Village/Town *</label>
                             <input
                                 type="text"
-                                value={village}
-                                onChange={(e) => setVillage(e.target.value)}
+                                value={formData.declVillage}
+                                onChange={(e) => updateFormData({ declVillage: e.target.value })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500"
                             />
                         </div>
                         <div className="space-y-1">
                             <label className="block text-xs font-bold text-red-600">State/UT *</label>
                             <select
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
+                                value={formData.declState}
+                                onChange={(e) => updateFormData({ declState: e.target.value, declDistrict: '' })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             >
                                 <option value="">Select State</option>
-                                <option value="state1">Andhra Pradesh</option>
+                                {Object.keys(locationData).map((state) => (
+                                    <option key={state} value={state}>
+                                        {state}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                         <div className="space-y-1">
                             <label className="block text-xs font-bold">District</label>
                             <select
-                                value={district}
-                                onChange={(e) => setDistrict(e.target.value)}
-                                className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                value={formData.declDistrict}
+                                onChange={(e) => updateFormData({ declDistrict: e.target.value })}
+                                disabled={!formData.declState}
+                                className={`w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 ${!formData.declState ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 <option value="">Select District</option>
-                                <option value="dist1">District 1</option>
+                                {formData.declState && locationData[formData.declState]?.districts &&
+                                    Object.keys(locationData[formData.declState].districts).map((dist) => (
+                                        <option key={dist} value={dist}>
+                                            {dist}
+                                        </option>
+                                    ))
+                                }
                             </select>
                         </div>
                     </div>
@@ -67,8 +73,8 @@ const Declaration = () => {
                     <p>(ii) I am ordinarily a resident at the address mentioned at Section 8(a) in Form 6 since <span className="text-red-600">*</span></p>
                     <input
                         type="month"
-                        value={residenceDate}
-                        onChange={(e) => setResidenceDate(e.target.value)}
+                        value={formData.declResidenceDate}
+                        onChange={(e) => updateFormData({ declResidenceDate: e.target.value })}
                         className="border border-gray-300 rounded px-3 py-1 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500"
                     />
                 </div>
@@ -92,8 +98,8 @@ const Declaration = () => {
                             <label className="block text-sm font-bold text-red-600">Place *</label>
                             <input
                                 type="text"
-                                value={place}
-                                onChange={(e) => setPlace(e.target.value)}
+                                value={formData.declPlace}
+                                onChange={(e) => updateFormData({ declPlace: e.target.value })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500"
                             />
                         </div>
@@ -123,7 +129,7 @@ const Declaration = () => {
                 </button>
                 <button
                     type="button"
-                    onClick={() => navigate('/captcha-details', { state: locationState })}
+                    onClick={() => navigate('/captcha-details')}
                     className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                 >
                     &darr; Next
