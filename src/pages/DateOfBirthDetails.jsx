@@ -1,11 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
 
 const DateOfBirthDetails = () => {
     const navigate = useNavigate();
-    const { formData, updateFormData, handleFileChange } = useFormContext();
+    const { formData, updateFormData } = useRegistration();
+
+    const [dob, setDob] = useState(formData.dob || '');
+    const [documentType, setDocumentType] = useState('proof'); // 'proof' or 'other'
+    const [selectedDoc, setSelectedDoc] = useState('');
+    const [otherDocSpec, setOtherDocSpec] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedFile(e.target.files[0]);
+        }
+    };
 
     return (
         <ECILayout activeStep="G">
@@ -128,7 +141,10 @@ const DateOfBirthDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/present-address-details')}
+                        onClick={() => {
+                            updateFormData({ dob: dob });
+                            navigate('/present-address-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

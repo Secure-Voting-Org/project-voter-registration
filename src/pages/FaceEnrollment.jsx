@@ -1,12 +1,18 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Webcam from 'react-webcam';
-import * as faceapi from 'face-api.js';
-import { useFormContext } from '../context/FormContext';
+import { useRegistration } from '../context/RegistrationContext';
+import FaceScanner from '../components/FaceScanner';
+import axios from 'axios';
 import ECILayout from '../components/ECILayout';
 
 const FaceEnrollment = () => {
-    const webcamRef = useRef(null);
+    const { formData } = useRegistration();
+    // Fallback if accessed directly without data (optional, but good for safety)
+    const state = {
+        aadhaar: formData.aadhaar || 'TEST_AADHAAR_999',
+        name: formData.name || 'Test Applicant',
+        constituency: formData.constituency || 'Test Constituency'
+    };
     const navigate = useNavigate();
     const { formData, updateFormData } = useFormContext();
     const [modelLoaded, setModelLoaded] = useState(false);
@@ -44,10 +50,18 @@ const FaceEnrollment = () => {
         setMessage("Analyzing biometric features...");
 
         try {
-            const videoEl = webcamRef.current.video;
+            const response = await axios.post('http://localhost:5000/api/registration/submit', {
+                ...formData, // <--- Submit ALL collected data
+                faceDescriptor: faceDescriptor
+            });
 
-            if (videoEl.readyState !== 4) {
-                throw new Error("Camera stream unstable");
+            if (response.data.success) {
+                navigate('/success', {
+                    state: {
+                        applicationId: response.data.applicationId,
+                        name: state.name
+                    }
+                });
             }
 
             // Add a timeout to prevent infinite hanging
@@ -103,15 +117,18 @@ const FaceEnrollment = () => {
                         {error || (detecting ? "Scanning..." : guidance)}
                     </div>
 
-                    <div className="relative border-4 border-gray-900 rounded-2xl overflow-hidden shadow-2xl w-[400px] h-[300px] bg-black">
-                        {modelLoaded ? (
-                            <Webcam
-                                audio={false}
-                                ref={webcamRef}
-                                screenshotFormat="image/jpeg"
-                                className="w-full h-full object-cover transform scale-x-[-1]" // Mirror effect
-                                videoConstraints={{ facingMode: "user" }}
-                                onUserMediaError={() => setError("Camera access denied")}
+                <div className="w-full max-w-lg">
+                    {submitting ? (
+                        <div className="flex flex-col items-center justify-center p-12 bg-gray-50 rounded-xl border border-dashed border-gray-300">
+                            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                            <p className="text-sm font-semibold text-gray-700">Submitting Application...</p>
+                        </div>
+                    ) : (
+                        <div className="border border-gray-300 p-2 rounded shadow-sm bg-white">
+                            <FaceScanner
+                                mode="enroll"
+                                onEnroll={handleEnrollment}
+                                onScanFailure={(err) => setError(err.message)}
                             />
                         ) : (
                             <div className="flex flex-col items-center justify-center h-full text-gray-400 space-y-4">
@@ -143,41 +160,9 @@ const FaceEnrollment = () => {
                     </div>
                 </div>
 
-                {/* Controls */}
-                <div className="mt-8 flex gap-6">
-                    <button
-                        onClick={() => navigate('/captcha-details')}
-                        className="px-6 py-3 bg-white text-gray-700 font-bold rounded-xl shadow-sm border border-gray-200 hover:bg-gray-50 hover:shadow-md transition-all"
-                    >
-                        Back
-                    </button>
-                    <button
-                        onClick={captureAndRegister}
-                        disabled={!modelLoaded || detecting}
-                        className={`flex items-center gap-2 px-10 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all text-lg ${(!modelLoaded || detecting) ? 'opacity-50 cursor-not-allowed grayscale' : ''
-                            }`}
-                    >
-                        {detecting ? (
-                            <>Processing...</>
-                        ) : (
-                            <>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                                </svg>
-                                Perform Scan
-                            </>
-                        )}
-                    </button>
-                </div>
-
-                {/* CSS Animation for Scanner */}
-                <style>{`
-                    @keyframes scan {
-                        0% { top: 10%; opacity: 0; }
-                        50% { opacity: 1; }
-                        100% { top: 90%; opacity: 0; }
-                    }
-                `}</style>
+                <p className="mt-8 text-xs text-gray-400 max-w-md text-center">
+                    Note: Your face data is securely encrypted. Your application will be verified by an Election Officer before approval.
+                </p>
             </div>
         </ECILayout>
     );

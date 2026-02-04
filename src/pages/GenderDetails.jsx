@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
 
 const GenderDetails = () => {
     const navigate = useNavigate();
-    const { formData, updateFormData } = useFormContext();
+    const { formData, updateFormData } = useRegistration();
+    const [gender, setGender] = useState(formData.gender || '');
 
     return (
         <ECILayout activeStep="F">
@@ -72,7 +74,10 @@ const GenderDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/dob-details')}
+                        onClick={() => {
+                            updateFormData({ gender: gender });
+                            navigate('/dob-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

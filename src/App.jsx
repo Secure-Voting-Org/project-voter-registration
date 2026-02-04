@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { RegistrationProvider } from './context/RegistrationContext';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import TrackStatus from './pages/TrackStatus';
@@ -22,7 +23,7 @@ import { FormProvider } from './context/FormContext';
 function App() {
   return (
     <Router>
-      <FormProvider>
+      <RegistrationProvider>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -42,7 +43,7 @@ function App() {
           <Route path="/face-enroll" element={<FaceEnrollment />} />
           <Route path="/success" element={<Success />} />
         </Routes>
-      </FormProvider>
+      </RegistrationProvider>
     </Router>
   );
 }

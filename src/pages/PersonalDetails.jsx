@@ -1,14 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
 
 const PersonalDetails = () => {
     const navigate = useNavigate();
-    const { formData, updateFormData, handleFileChange } = useFormContext();
+    const { formData, updateFormData } = useRegistration();
 
-    // Handlers
-    // handleFileChange is now imported from context
+    // Form Local State (initialized from context)
+    const [firstName, setFirstName] = useState(formData.name ? formData.name.split(' ')[0] : '');
+    const [surname, setSurname] = useState(formData.name && formData.name.split(' ').length > 1 ? formData.name.split(' ').slice(1).join(' ') : '');
+
+    const handleNext = () => {
+        const fullName = `${firstName} ${surname}`.trim();
+        updateFormData({ name: fullName });
+        navigate('/relatives-details');
+    };
+
+    // File Upload State
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setSelectedFile(e.target.files[0]);
+        }
+    };
 
     return (
         <ECILayout activeStep="B">
@@ -85,7 +102,7 @@ const PersonalDetails = () => {
                         </button>
                         <button
                             type="button"
-                            onClick={() => navigate('/relatives-details')}
+                            onClick={handleNext}
                             className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                         >
                             Next &darr;
