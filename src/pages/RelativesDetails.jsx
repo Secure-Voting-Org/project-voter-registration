@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const RelativesDetails = () => {
     const navigate = useNavigate();
-    const [relationType, setRelationType] = useState('');
-    const [relativeName, setRelativeName] = useState('');
-    const [relativeSurname, setRelativeSurname] = useState('');
+    const { formData, updateFormData } = useFormContext();
 
     return (
         <ECILayout activeStep="C">
@@ -28,8 +27,8 @@ const RelativesDetails = () => {
                                     type="radio"
                                     name="relationType"
                                     value={type}
-                                    checked={relationType === type}
-                                    onChange={(e) => setRelationType(e.target.value)}
+                                    checked={formData.relationType === type}
+                                    onChange={(e) => updateFormData({ relationType: e.target.value })}
                                     className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                                 />
                                 <span className="text-sm text-gray-700">{type}</span>
@@ -47,8 +46,8 @@ const RelativesDetails = () => {
                         </label>
                         <input
                             type="text"
-                            value={relativeName}
-                            onChange={(e) => setRelativeName(e.target.value)}
+                            value={formData.relativeName}
+                            onChange={(e) => updateFormData({ relativeName: e.target.value })}
                             className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-colors"
                         />
                     </div>
@@ -60,8 +59,8 @@ const RelativesDetails = () => {
                         </label>
                         <input
                             type="text"
-                            value={relativeSurname}
-                            onChange={(e) => setRelativeSurname(e.target.value)}
+                            value={formData.relativeSurname}
+                            onChange={(e) => updateFormData({ relativeSurname: e.target.value })}
                             className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-colors"
                         />
 

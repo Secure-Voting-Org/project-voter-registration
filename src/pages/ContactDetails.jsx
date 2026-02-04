@@ -1,37 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const ContactDetails = () => {
     const navigate = useNavigate();
-
-    // State for Mobile
-    const [mobileSelf, setMobileSelf] = useState(false);
-    const [mobileRelative, setMobileRelative] = useState(false);
-    const [mobileNumber, setMobileNumber] = useState('');
-
-    // State for Email
-    const [emailSelf, setEmailSelf] = useState(false);
-    const [emailRelative, setEmailRelative] = useState(false);
-    const [emailId, setEmailId] = useState('');
+    const { formData, updateFormData } = useFormContext();
 
     const handleMobileCheck = (type) => {
         if (type === 'self') {
-            setMobileSelf(!mobileSelf);
-            if (!mobileSelf) setMobileRelative(false);
+            const newValue = !formData.mobileSelf;
+            updateFormData({
+                mobileSelf: newValue,
+                mobileRelative: newValue ? false : formData.mobileRelative
+            });
         } else {
-            setMobileRelative(!mobileRelative);
-            if (!mobileRelative) setMobileSelf(false);
+            const newValue = !formData.mobileRelative;
+            updateFormData({
+                mobileRelative: newValue,
+                mobileSelf: newValue ? false : formData.mobileSelf
+            });
         }
     };
 
     const handleEmailCheck = (type) => {
         if (type === 'self') {
-            setEmailSelf(!emailSelf);
-            if (!emailSelf) setEmailRelative(false);
+            const newValue = !formData.emailSelf;
+            updateFormData({
+                emailSelf: newValue,
+                emailRelative: newValue ? false : formData.emailRelative
+            });
         } else {
-            setEmailRelative(!emailRelative);
-            if (!emailRelative) setEmailSelf(false);
+            const newValue = !formData.emailRelative;
+            updateFormData({
+                emailRelative: newValue,
+                emailSelf: newValue ? false : formData.emailSelf
+            });
         }
     };
 
@@ -52,7 +56,7 @@ const ContactDetails = () => {
                         <label className="flex items-center gap-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={mobileSelf}
+                                checked={formData.mobileSelf}
                                 onChange={() => handleMobileCheck('self')}
                                 className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300"
                             />
@@ -61,7 +65,7 @@ const ContactDetails = () => {
                         <label className="flex items-center gap-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={mobileRelative}
+                                checked={formData.mobileRelative}
                                 onChange={() => handleMobileCheck('relative')}
                                 className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300"
                             />
@@ -79,8 +83,8 @@ const ContactDetails = () => {
                             </span>
                             <input
                                 type="text"
-                                value={mobileNumber}
-                                onChange={(e) => setMobileNumber(e.target.value)}
+                                value={formData.mobileNumber}
+                                onChange={(e) => updateFormData({ mobileNumber: e.target.value })}
                                 className="w-full border border-gray-300 rounded-r px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-gray-100 focus:bg-white transition-colors"
                             />
                         </div>
@@ -96,7 +100,7 @@ const ContactDetails = () => {
                         <label className="flex items-center gap-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={emailSelf}
+                                checked={formData.emailSelf}
                                 onChange={() => handleEmailCheck('self')}
                                 className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300"
                             />
@@ -105,7 +109,7 @@ const ContactDetails = () => {
                         <label className="flex items-center gap-2 cursor-pointer">
                             <input
                                 type="checkbox"
-                                checked={emailRelative}
+                                checked={formData.emailRelative}
                                 onChange={() => handleEmailCheck('relative')}
                                 className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300"
                             />
@@ -120,8 +124,8 @@ const ContactDetails = () => {
                         <div className="max-w-md">
                             <input
                                 type="email"
-                                value={emailId}
-                                onChange={(e) => setEmailId(e.target.value)}
+                                value={formData.emailId}
+                                onChange={(e) => updateFormData({ emailId: e.target.value })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-gray-100 focus:bg-white transition-colors"
                             />
                         </div>

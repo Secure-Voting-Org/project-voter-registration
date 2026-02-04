@@ -1,10 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
+import { locationData } from '../data/locationData';
 
 const IdentityCheck = () => {
     const navigate = useNavigate();
-    const [constituencyType, setConstituencyType] = useState('assemby'); // 'assembly' or 'parliamentary'
+    const { formData, updateFormData } = useFormContext();
+
+    // Initialize local state from global store or defaults
+    const [constituencyType, setConstituencyType] = useState(formData.constituencyType || 'assembly');
+
+    // Derived lists based on selection
+    const [availableDistricts, setAvailableDistricts] = useState([]);
+    const [availableConstituencies, setAvailableConstituencies] = useState([]);
+
+    // Update Districts when State changes
+    useEffect(() => {
+        if (formData.state && locationData[formData.state]) {
+            setAvailableDistricts(Object.keys(locationData[formData.state].districts));
+        } else {
+            setAvailableDistricts([]);
+        }
+    }, [formData.state]);
+
+    // Update Constituencies when District changes
+    useEffect(() => {
+        if (formData.state && formData.district && locationData[formData.state] && locationData[formData.state].districts[formData.district]) {
+            setAvailableConstituencies(locationData[formData.state].districts[formData.district]);
+        } else {
+            setAvailableConstituencies([]);
+        }
+    }, [formData.state, formData.district]);
+
+    // Auto-fill Constituency Number when Constituency changes
+    const handleConstituencyChange = (e) => {
+        const selectedName = e.target.value;
+        updateFormData({ assemblyConstituency: selectedName });
+
+        const selectedConst = availableConstituencies.find(c => c.name === selectedName);
+        if (selectedConst) {
+            updateFormData({ assemblyConstituencyNo: selectedConst.number });
+        } else {
+            updateFormData({ assemblyConstituencyNo: '' });
+        }
+    };
+
+    const handleNext = () => {
+        // Save current state to global store before navigating
+        updateFormData({ constituencyType });
+        navigate('/personal-details');
+    };
 
     return (
         <ECILayout activeStep="A">
@@ -26,11 +72,17 @@ const IdentityCheck = () => {
                         <label className="block text-xs font-semibold text-gray-700 mb-1">
                             State <span className="text-red-500">*</span>
                         </label>
-                        <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
-                            <option>Select State</option>
-                            <option>Andhra Pradesh</option>
-                            <option>Telangana</option>
-                            <option>Karnataka</option>
+                        <select
+                            value={formData.state}
+                            onChange={(e) => {
+                                updateFormData({ state: e.target.value, district: '', assemblyConstituency: '', assemblyConstituencyNo: '' });
+                            }}
+                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+                        >
+                            <option value="">Select State</option>
+                            {Object.keys(locationData).map((state) => (
+                                <option key={state} value={state}>{state}</option>
+                            ))}
                         </select>
                     </div>
 
@@ -39,11 +91,18 @@ const IdentityCheck = () => {
                         <label className="block text-xs font-semibold text-gray-700 mb-1">
                             District
                         </label>
-                        <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
-                            <option>Select District</option>
-                            <option>Chittoor</option>
-                            <option>Kadapa</option>
-                            <option>Guntur</option>
+                        <select
+                            value={formData.district}
+                            onChange={(e) => {
+                                updateFormData({ district: e.target.value, assemblyConstituency: '', assemblyConstituencyNo: '' });
+                            }}
+                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
+                            disabled={!formData.state}
+                        >
+                            <option value="">Select District</option>
+                            {availableDistricts.map((dist) => (
+                                <option key={dist} value={dist}>{dist}</option>
+                            ))}
                         </select>
                     </div>
                 </div>
@@ -69,18 +128,23 @@ const IdentityCheck = () => {
                             <input
                                 type="text"
                                 placeholder="No."
+                                value={formData.assemblyConstituencyNo || ''}
+                                readOnly
                                 disabled={constituencyType !== 'assembly'}
-                                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-50"
+                                className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-100 cursor-not-allowed"
                             />
                         </div>
                         <div className="flex-1">
                             <select
-                                disabled={constituencyType !== 'assembly'}
+                                value={formData.assemblyConstituency || ''}
+                                onChange={handleConstituencyChange}
+                                disabled={constituencyType !== 'assembly' || !formData.district}
                                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white"
                             >
-                                <option>Select AC</option>
-                                <option>Kuppam</option>
-                                <option>Pulivendula</option>
+                                <option value="">Select AC</option>
+                                {availableConstituencies.map((ac) => (
+                                    <option key={ac.name} value={ac.name}>{ac.name}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -143,7 +207,7 @@ const IdentityCheck = () => {
                 <div className="flex justify-end items-center pt-2">
                     <button
                         type="button"
-                        onClick={() => navigate('/personal-details')}
+                        onClick={handleNext}
                         className="px-6 py-2 bg-blue-400 text-white text-sm font-medium rounded hover:bg-blue-500 transition-colors"
                     >
                         Next &darr;

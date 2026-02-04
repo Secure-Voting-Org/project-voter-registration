@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const AadhaarDetails = () => {
     const navigate = useNavigate();
-    const [aadhaarOption, setAadhaarOption] = useState('aadhaar'); // 'aadhaar' or 'no_aadhaar'
-    const [aadhaarNumber, setAadhaarNumber] = useState('');
+    const { formData, updateFormData } = useFormContext();
 
     return (
         <ECILayout activeStep="E">
@@ -27,8 +27,8 @@ const AadhaarDetails = () => {
                             id="has_aadhaar"
                             name="aadhaar_option"
                             value="aadhaar"
-                            checked={aadhaarOption === 'aadhaar'}
-                            onChange={() => setAadhaarOption('aadhaar')}
+                            checked={formData.aadhaarOption === 'aadhaar'}
+                            onChange={() => updateFormData({ aadhaarOption: 'aadhaar' })}
                             className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                         />
                         <label htmlFor="has_aadhaar" className="text-sm text-gray-700">
@@ -37,13 +37,13 @@ const AadhaarDetails = () => {
                     </div>
 
                     {/* Aadhaar Input Field (Conditional) */}
-                    {aadhaarOption === 'aadhaar' && (
+                    {formData.aadhaarOption === 'aadhaar' && (
                         <div className="ml-7 max-w-sm">
                             <input
                                 type="text"
                                 placeholder="Enter Aadhaar Number"
-                                value={aadhaarNumber}
-                                onChange={(e) => setAadhaarNumber(e.target.value.replace(/\D/g, '').slice(0, 12))}
+                                value={formData.aadhaarNumber}
+                                onChange={(e) => updateFormData({ aadhaarNumber: e.target.value.replace(/\D/g, '').slice(0, 12) })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                             />
                         </div>
@@ -56,8 +56,8 @@ const AadhaarDetails = () => {
                             id="no_aadhaar"
                             name="aadhaar_option"
                             value="no_aadhaar"
-                            checked={aadhaarOption === 'no_aadhaar'}
-                            onChange={() => setAadhaarOption('no_aadhaar')}
+                            checked={formData.aadhaarOption === 'no_aadhaar'}
+                            onChange={() => updateFormData({ aadhaarOption: 'no_aadhaar' })}
                             className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                         />
                         <label htmlFor="no_aadhaar" className="text-sm text-gray-700">

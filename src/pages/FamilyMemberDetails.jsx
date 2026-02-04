@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const FamilyMemberDetails = () => {
     const navigate = useNavigate();
-    const { state } = useLocation();
-
-    // Family Member State
-    const [familyName, setFamilyName] = useState('');
-    const [relationship, setRelationship] = useState('');
-    const [epicNumber, setEpicNumber] = useState('');
+    const { formData, updateFormData } = useFormContext();
 
     return (
         <ECILayout activeStep="J">
@@ -30,8 +26,8 @@ const FamilyMemberDetails = () => {
                             </label>
                             <input
                                 type="text"
-                                value={familyName}
-                                onChange={(e) => setFamilyName(e.target.value)}
+                                value={formData.familyName}
+                                onChange={(e) => updateFormData({ familyName: e.target.value })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-colors"
                             />
                         </div>
@@ -42,8 +38,8 @@ const FamilyMemberDetails = () => {
                                 Relationship with applicant
                             </label>
                             <select
-                                value={relationship}
-                                onChange={(e) => setRelationship(e.target.value)}
+                                value={formData.relationship}
+                                onChange={(e) => updateFormData({ relationship: e.target.value })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500"
                             >
                                 <option value="">Select Relation</option>
@@ -62,8 +58,8 @@ const FamilyMemberDetails = () => {
                             </label>
                             <input
                                 type="text"
-                                value={epicNumber}
-                                onChange={(e) => setEpicNumber(e.target.value)}
+                                value={formData.epicNumber}
+                                onChange={(e) => updateFormData({ epicNumber: e.target.value })}
                                 className="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500 transition-colors"
                             />
                         </div>
@@ -83,7 +79,7 @@ const FamilyMemberDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/declaration', { state })}
+                        onClick={() => navigate('/declaration')}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next
