@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const FamilyMemberDetails = () => {
     const navigate = useNavigate();
-    const { state } = useLocation();
+    const { updateFormData } = useRegistration();
 
     // Family Member State
     const [familyName, setFamilyName] = useState('');
@@ -81,9 +82,18 @@ const FamilyMemberDetails = () => {
                     >
                         &uarr; Previous
                     </button>
+
                     <button
                         type="button"
-                        onClick={() => navigate('/declaration', { state })}
+                        onClick={() => {
+                            // Save family details to context (optional if backend doesn't need it yet, but good practice)
+                            updateFormData({
+                                familyMemberName: familyName,
+                                familyMemberRelation: relationship,
+                                familyMemberEpic: epicNumber
+                            });
+                            navigate('/declaration');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

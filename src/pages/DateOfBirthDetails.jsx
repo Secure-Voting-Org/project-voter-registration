@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const DateOfBirthDetails = () => {
     const navigate = useNavigate();
-    const [dob, setDob] = useState('');
+    const { formData, updateFormData } = useRegistration();
+
+    const [dob, setDob] = useState(formData.dob || '');
     const [documentType, setDocumentType] = useState('proof'); // 'proof' or 'other'
     const [selectedDoc, setSelectedDoc] = useState('');
     const [otherDocSpec, setOtherDocSpec] = useState('');
@@ -134,7 +137,10 @@ const DateOfBirthDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/present-address-details')}
+                        onClick={() => {
+                            updateFormData({ dob: dob });
+                            navigate('/present-address-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

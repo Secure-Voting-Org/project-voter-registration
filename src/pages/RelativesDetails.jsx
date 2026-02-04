@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const RelativesDetails = () => {
     const navigate = useNavigate();
-    const [relationType, setRelationType] = useState('');
-    const [relativeName, setRelativeName] = useState('');
-    const [relativeSurname, setRelativeSurname] = useState('');
+    const { formData, updateFormData } = useRegistration();
+
+    const [relationType, setRelationType] = useState(formData.relativeType || '');
+    const [relativeName, setRelativeName] = useState(formData.relativeName ? formData.relativeName.split(' ')[0] : '');
+    const [relativeSurname, setRelativeSurname] = useState(formData.relativeName && formData.relativeName.split(' ').length > 1 ? formData.relativeName.split(' ').slice(1).join(' ') : '');
 
     return (
         <ECILayout activeStep="C">
@@ -81,7 +84,11 @@ const RelativesDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/contact-details')} // Proceed to Next Step
+                        onClick={() => {
+                            const fullRelativeName = `${relativeName} ${relativeSurname}`.trim();
+                            updateFormData({ relativeName: fullRelativeName, relativeType: relationType });
+                            navigate('/contact-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

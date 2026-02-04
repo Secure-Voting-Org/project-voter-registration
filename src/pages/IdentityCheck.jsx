@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const IdentityCheck = () => {
     const navigate = useNavigate();
-    const [constituencyType, setConstituencyType] = useState('assemby'); // 'assembly' or 'parliamentary'
+    const { formData, updateFormData } = useRegistration();
+
+    // Initialize with context data
+    const [constituencyType, setConstituencyType] = useState('assembly');
+    const [selectedState, setSelectedState] = useState(formData.state || '');
+    const [selectedDistrict, setSelectedDistrict] = useState(formData.district || '');
+    const [selectedConstituency, setSelectedConstituency] = useState(formData.constituency || '');
+
+    const handleNext = () => {
+        updateFormData({
+            state: selectedState,
+            district: selectedDistrict,
+            constituency: selectedConstituency
+        });
+        navigate('/personal-details');
+    };
 
     return (
         <ECILayout activeStep="A">
@@ -26,11 +42,14 @@ const IdentityCheck = () => {
                         <label className="block text-xs font-semibold text-gray-700 mb-1">
                             State <span className="text-red-500">*</span>
                         </label>
-                        <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
-                            <option>Select State</option>
-                            <option>Andhra Pradesh</option>
-                            <option>Telangana</option>
-                            <option>Karnataka</option>
+                        <select
+                            value={selectedState}
+                            onChange={(e) => setSelectedState(e.target.value)}
+                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
+                            <option value="">Select State</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Telangana">Telangana</option>
+                            <option value="Karnataka">Karnataka</option>
                         </select>
                     </div>
 
@@ -39,11 +58,14 @@ const IdentityCheck = () => {
                         <label className="block text-xs font-semibold text-gray-700 mb-1">
                             District
                         </label>
-                        <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
-                            <option>Select District</option>
-                            <option>Chittoor</option>
-                            <option>Kadapa</option>
-                            <option>Guntur</option>
+                        <select
+                            value={selectedDistrict}
+                            onChange={(e) => setSelectedDistrict(e.target.value)}
+                            className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white">
+                            <option value="">Select District</option>
+                            <option value="Chittoor">Chittoor</option>
+                            <option value="Kadapa">Kadapa</option>
+                            <option value="Guntur">Guntur</option>
                         </select>
                     </div>
                 </div>
@@ -75,12 +97,13 @@ const IdentityCheck = () => {
                         </div>
                         <div className="flex-1">
                             <select
-                                disabled={constituencyType !== 'assembly'}
+                                value={selectedConstituency}
+                                onChange={(e) => setSelectedConstituency(e.target.value)}
                                 className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-white"
                             >
-                                <option>Select AC</option>
-                                <option>Kuppam</option>
-                                <option>Pulivendula</option>
+                                <option value="">Select AC</option>
+                                <option value="Kuppam">Kuppam</option>
+                                <option value="Pulivendula">Pulivendula</option>
                             </select>
                         </div>
                     </div>
@@ -143,14 +166,14 @@ const IdentityCheck = () => {
                 <div className="flex justify-end items-center pt-2">
                     <button
                         type="button"
-                        onClick={() => navigate('/personal-details')}
+                        onClick={handleNext}
                         className="px-6 py-2 bg-blue-400 text-white text-sm font-medium rounded hover:bg-blue-500 transition-colors"
                     >
                         Next &darr;
                     </button>
                 </div>
             </form>
-        </ECILayout>
+        </ECILayout >
     );
 };
 

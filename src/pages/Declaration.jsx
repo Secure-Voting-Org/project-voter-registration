@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const Declaration = () => {
     const navigate = useNavigate();
-    const { state: locationState } = useLocation();
+    const { formData, updateFormData } = useRegistration();
 
     // Declaration State
-    const [village, setVillage] = useState('');
-    const [state, setState] = useState('');
-    const [district, setDistrict] = useState('');
+    const [village, setVillage] = useState(formData.village || '');
+    const [state, setState] = useState(formData.state || '');
+    const [district, setDistrict] = useState(formData.district || '');
     const [residenceDate, setResidenceDate] = useState('');
     const [place, setPlace] = useState('');
     const [date, setDate] = useState('01 | 02 | 2026'); // Pre-filled or current date
@@ -121,9 +122,19 @@ const Declaration = () => {
                 >
                     &uarr; Previous
                 </button>
+
                 <button
                     type="button"
-                    onClick={() => navigate('/captcha-details', { state: locationState })}
+                    onClick={() => {
+                        updateFormData({
+                            declarationVillage: village,
+                            declarationState: state,
+                            declarationDistrict: district,
+                            declarationDate: residenceDate,
+                            declarationPlace: place
+                        });
+                        navigate('/captcha-details');
+                    }}
                     className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                 >
                     &darr; Next

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import FaceScanner from '../components/FaceScanner';
 import axios from 'axios';
 import ECILayout from '../components/ECILayout';
 
 const FaceEnrollment = () => {
-    const { state: locationState } = useLocation();
-    // Fallback state for testing/development if accessed directly
-    const state = locationState || {
-        aadhaar: 'TEST_AADHAAR_123',
-        name: 'Test Applicant',
-        constituency: 'Test Constituency'
+    const { formData } = useRegistration();
+    // Fallback if accessed directly without data (optional, but good for safety)
+    const state = {
+        aadhaar: formData.aadhaar || 'TEST_AADHAAR_999',
+        name: formData.name || 'Test Applicant',
+        constituency: formData.constituency || 'Test Constituency'
     };
     const navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
@@ -22,16 +23,14 @@ const FaceEnrollment = () => {
 
         try {
             const response = await axios.post('http://localhost:5000/api/registration/submit', {
-                aadhaar: state.aadhaar,
-                name: state.name,
-                constituency: state.constituency,
+                ...formData, // <--- Submit ALL collected data
                 faceDescriptor: faceDescriptor
             });
 
             if (response.data.success) {
                 navigate('/success', {
                     state: {
-                        voterId: response.data.voterId,
+                        applicationId: response.data.applicationId,
                         name: state.name
                     }
                 });
@@ -69,7 +68,7 @@ const FaceEnrollment = () => {
                     {submitting ? (
                         <div className="flex flex-col items-center justify-center p-12 bg-gray-50 rounded-xl border border-dashed border-gray-300">
                             <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-                            <p className="text-sm font-semibold text-gray-700">Generating Voter ID...</p>
+                            <p className="text-sm font-semibold text-gray-700">Submitting Application...</p>
                         </div>
                     ) : (
                         <div className="border border-gray-300 p-2 rounded shadow-sm bg-white">
@@ -83,7 +82,7 @@ const FaceEnrollment = () => {
                 </div>
 
                 <p className="mt-8 text-xs text-gray-400 max-w-md text-center">
-                    Note: Your face data is securely encrypted and linked only to your Voter ID for election day verification.
+                    Note: Your face data is securely encrypted. Your application will be verified by an Election Officer before approval.
                 </p>
             </div>
         </ECILayout>

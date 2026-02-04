@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const AadhaarDetails = () => {
     const navigate = useNavigate();
-    const [aadhaarOption, setAadhaarOption] = useState('aadhaar'); // 'aadhaar' or 'no_aadhaar'
-    const [aadhaarNumber, setAadhaarNumber] = useState('');
+    const { formData, updateFormData } = useRegistration();
+
+    const [aadhaarOption, setAadhaarOption] = useState(formData.aadhaar ? 'aadhaar' : 'aadhaar');
+    const [aadhaarNumber, setAadhaarNumber] = useState(formData.aadhaar || '');
 
     return (
         <ECILayout activeStep="E">
@@ -79,7 +82,10 @@ const AadhaarDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/gender-details')}
+                        onClick={() => {
+                            updateFormData({ aadhaar: aadhaarNumber });
+                            navigate('/gender-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

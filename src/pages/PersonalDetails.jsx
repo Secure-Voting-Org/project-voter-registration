@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const PersonalDetails = () => {
     const navigate = useNavigate();
-    const { state } = useLocation(); // Preserve state from previous step if needed
+    const { formData, updateFormData } = useRegistration();
 
-    // Form State
-    const [firstName, setFirstName] = useState('');
-    const [surname, setSurname] = useState('');
+    // Form Local State (initialized from context)
+    const [firstName, setFirstName] = useState(formData.name ? formData.name.split(' ')[0] : '');
+    const [surname, setSurname] = useState(formData.name && formData.name.split(' ').length > 1 ? formData.name.split(' ').slice(1).join(' ') : '');
+
+    const handleNext = () => {
+        const fullName = `${firstName} ${surname}`.trim();
+        updateFormData({ name: fullName });
+        navigate('/relatives-details');
+    };
 
     // File Upload State
     const [selectedFile, setSelectedFile] = useState(null);
@@ -112,7 +119,7 @@ const PersonalDetails = () => {
                         </button>
                         <button
                             type="button"
-                            onClick={() => navigate('/relatives-details')}
+                            onClick={handleNext}
                             className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                         >
                             Next &darr;

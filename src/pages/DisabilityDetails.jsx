@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const DisabilityDetails = () => {
     const navigate = useNavigate();
+    const { updateFormData } = useRegistration();
 
     // Disability Category State
     const [categories, setCategories] = useState({
@@ -180,7 +182,18 @@ const DisabilityDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/family-details')}
+                        onClick={() => {
+                            // Collect disability details
+                            const selectedCategories = Object.keys(categories).filter(key => categories[key]);
+                            let disabilityString = selectedCategories.join(', ');
+                            if (categories.other && otherSpecification) {
+                                disabilityString += ` (Other: ${otherSpecification})`;
+                            }
+                            // Save to context
+                            updateFormData({ disability: disabilityString });
+                            // Navigate
+                            navigate('/family-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next

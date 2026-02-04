@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 
 const PresentAddressDetails = () => {
     const navigate = useNavigate();
+    const { formData, updateFormData } = useRegistration();
 
-    // Address State
+    // Address State (parse from single address string or keep separate if needed - assuming simple string for now or individual fields if context supports it)
+    // For now, let's just store individual fields in context or a big address object.
+    // Let's assume we store the "address" as a concatenated string for the backend, but we can store components here if we want better UX.
+    // But since backend expects 'address', we'll reconstruct it.
+
+    // BETTER: Let's assume we just save the full address string to context 'address' for now, 
+    // OR, better, let's keep local state and save the formatted address on "Next".
     const [addressData, setAddressData] = useState({
         houseNo: '',
-        streetClass: '', // Street/Area/Locality...
+        streetClass: '',
         village: '',
         postOffice: '',
         pinCode: '',
         tehsil: '',
-        district: '',
-        state: ''
+        district: formData.district || '',
+        state: formData.state || ''
     });
 
     // Document State
@@ -245,7 +253,12 @@ const PresentAddressDetails = () => {
                     </button>
                     <button
                         type="button"
-                        onClick={() => navigate('/disability-details')}
+                        onClick={() => {
+                            // Construct full address string
+                            const fullAddress = `${addressData.houseNo}, ${addressData.streetClass}, ${addressData.village}, ${addressData.postOffice}, PIN: ${addressData.pinCode}, ${addressData.tehsil}, ${addressData.district}, ${addressData.state}`;
+                            updateFormData({ address: fullAddress });
+                            navigate('/disability-details');
+                        }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"
                     >
                         &darr; Next
