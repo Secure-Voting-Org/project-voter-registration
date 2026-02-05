@@ -82,8 +82,8 @@ const RelativesDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
-                            const fullRelativeName = `${relativeName} ${relativeSurname}`.trim();
-                            updateFormData({ relativeName: fullRelativeName, relativeType: relationType });
+                            const fullRelativeName = `${formData.relativeName} ${formData.relativeSurname}`.trim();
+                            updateFormData({ relativeName: fullRelativeName, relativeType: formData.relationType });
                             navigate('/contact-details');
                         }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"

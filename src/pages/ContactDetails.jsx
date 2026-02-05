@@ -147,7 +147,7 @@ const ContactDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
-                            updateFormData({ mobile: mobileNumber, email: emailId });
+                            updateFormData({ mobile: formData.mobileNumber, email: formData.emailId });
                             navigate('/aadhaar-details');
                         }}
                         className="px-6 py-2 bg-blue-400 text-white font-medium text-sm rounded hover:bg-blue-500 shadow-sm transition-colors"

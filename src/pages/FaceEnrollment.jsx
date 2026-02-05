@@ -25,6 +25,19 @@ const FaceEnrollment = () => {
                     faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
                     faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL)
                 ]);
+                setMessage("Warming up Neural Engines...");
+
+                try {
+                    // Warmup: Run a dummy detection to initialize shaders
+                    const dummyCanvas = document.createElement('canvas');
+                    dummyCanvas.width = 320;
+                    dummyCanvas.height = 240;
+                    // We use the full pipeline here to ensure everything is loaded, but ignore result
+                    await faceapi.detectSingleFace(dummyCanvas, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptor();
+                } catch (warmupErr) {
+                    console.warn("Warmup failed (non-fatal):", warmupErr);
+                }
+
                 setModelLoaded(true);
                 setGuidance("Align your face within the frame");
                 setMessage("Ready to Scan");
@@ -51,12 +64,12 @@ const FaceEnrollment = () => {
             }
 
             // Add a timeout to prevent infinite hanging
-            const detectionPromise = faceapi.detectSingleFace(videoEl, new faceapi.TinyFaceDetectorOptions())
+            const detectionPromise = faceapi.detectSingleFace(videoEl, new faceapi.TinyFaceDetectorOptions({ inputSize: 320, scoreThreshold: 0.5 }))
                 .withFaceLandmarks()
                 .withFaceDescriptor();
 
             const timeoutPromise = new Promise((_, reject) =>
-                setTimeout(() => reject(new Error("Detection timed out")), 5000)
+                setTimeout(() => reject(new Error("Detection timed out - Please move closer or check lighting")), 30000)
             );
 
             const detection = await Promise.race([detectionPromise, timeoutPromise]);
@@ -73,7 +86,7 @@ const FaceEnrollment = () => {
             const descriptorArray = Array.from(detection.descriptor);
             updateFormData({ faceDescriptor: descriptorArray });
 
-            navigate('/preview');
+            navigate('/success');
 
         } catch (err) {
             console.error("Capture Error:", err);
@@ -97,8 +110,8 @@ const FaceEnrollment = () => {
                 <div className="relative">
                     {/* Status Pill */}
                     <div className={`absolute -top-12 left-1/2 transform -translate-x-1/2 px-6 py-2 rounded-full text-sm font-semibold shadow-md transition-colors duration-300 ${error ? 'bg-red-100 text-red-700' :
-                            detecting ? 'bg-blue-100 text-blue-700 animate-pulse' :
-                                'bg-gray-800 text-white'
+                        detecting ? 'bg-blue-100 text-blue-700 animate-pulse' :
+                            'bg-gray-800 text-white'
                         }`}>
                         {error || (detecting ? "Scanning..." : guidance)}
                     </div>

@@ -232,7 +232,7 @@ const PresentAddressDetails = () => {
                         type="button"
                         onClick={() => {
                             // Construct full address string
-                            const fullAddress = `${addressData.houseNo}, ${addressData.streetClass}, ${addressData.village}, ${addressData.postOffice}, PIN: ${addressData.pinCode}, ${addressData.tehsil}, ${addressData.district}, ${addressData.state}`;
+                            const fullAddress = `${formData.houseNo}, ${formData.streetClass}, ${formData.village}, ${formData.postOffice}, PIN: ${formData.pinCode}, ${formData.tehsil}, ${formData.addressDistrict}, ${formData.addressState}`;
                             updateFormData({ address: fullAddress });
                             navigate('/disability-details');
                         }}

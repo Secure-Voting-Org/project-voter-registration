@@ -10,6 +10,10 @@ const PersonalDetails = () => {
     // Handlers
     // handleFileChange is now imported from context
 
+    const handleNext = () => {
+        navigate('/relatives-details');
+    };
+
     return (
         <ECILayout activeStep="B">
             {/* Section Header */}

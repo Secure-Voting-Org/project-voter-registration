@@ -152,10 +152,10 @@ const DisabilityDetails = () => {
                         type="button"
                         onClick={() => {
                             // Collect disability details
-                            const selectedCategories = Object.keys(categories).filter(key => categories[key]);
+                            const selectedCategories = Object.keys(formData.disabilityCategories).filter(key => formData.disabilityCategories[key]);
                             let disabilityString = selectedCategories.join(', ');
-                            if (categories.other && otherSpecification) {
-                                disabilityString += ` (Other: ${otherSpecification})`;
+                            if (formData.disabilityCategories.other && formData.disabilityOtherSpec) {
+                                disabilityString += ` (Other: ${formData.disabilityOtherSpec})`;
                             }
                             // Save to context
                             updateFormData({ disability: disabilityString });
