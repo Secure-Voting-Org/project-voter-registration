@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
-import { locationData } from '../data/locationData';
+
 
 const TransliterationInput = ({ label, value, onChange, required = false }) => (
     <div className="space-y-3">
@@ -22,6 +22,20 @@ const TransliterationInput = ({ label, value, onChange, required = false }) => (
 const PresentAddressDetails = () => {
     const navigate = useNavigate();
     const { formData, updateFormData, handleFileChange } = useFormContext();
+    const [locationData, setLocationData] = useState({});
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const { fetchLocationData } = await import('../utils/api');
+                const data = await fetchLocationData();
+                setLocationData(data);
+            } catch (e) {
+                console.error("Failed to load location data", e);
+            }
+        };
+        loadData();
+    }, []);
 
 
 
