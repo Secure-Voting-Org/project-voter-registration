@@ -61,6 +61,9 @@ export const FormProvider = ({ children }) => {
         emailRelative: false,
         emailId: '',
 
+        // Section M: Biometrics
+        faceDescriptor: null,
+
         // Section E: Aadhaar Details
         aadhaarOption: 'aadhaar', // 'aadhaar' | 'no_aadhaar'
         aadhaarNumber: '',

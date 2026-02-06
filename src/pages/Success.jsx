@@ -1,69 +1,169 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
+import { useFormContext } from '../context/FormContext';
 
 const Success = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { voterId, referenceId, name } = location.state || {};
+    const { formData } = useFormContext();
+    const [referenceId, setReferenceId] = useState(null);
+    const [status, setStatus] = useState('Submitting Application...');
+    const [error, setError] = useState(null);
+    const hasSubmitted = useRef(false);
 
-    // Prevent direct access if no state
-    if (!voterId) {
+    useEffect(() => {
+        const submitApplication = async () => {
+            if (hasSubmitted.current) return;
+            hasSubmitted.current = true;
+
+            console.log("Success Page: Submitting...", formData);
+            if (!formData.faceDescriptor) {
+                console.error("Success Page: NO FACE DESCRIPTOR in formData!");
+            }
+
+            try {
+                // Determine port - assuming backend is on 5000 based on previous context
+                const API_URL = 'http://localhost:5000/api/registration/submit';
+
+                // Basic validation
+                if (!formData.firstName && !formData.aadhaarNumber) {
+                    // If context is empty (reload), show error or redirect
+                    // For now, allow dry run or handle error
+                    // throw new Error("Incomplete form data. Please restart.");
+                }
+
+                const payload = {
+                    aadhaar: formData.aadhaarNumber,
+                    faceDescriptor: formData.faceDescriptor,
+                    formData: {
+                        firstName: formData.firstName,
+                        surname: formData.surname,
+                        gender: formData.gender,
+                        dobDay: formData.dobDay || '01',
+                        dobMonth: formData.dobMonth || '01',
+                        dobYear: formData.dobYear || '2000',
+
+                        assemblyConstituency: formData.constituencyName,
+
+                        mobileSelf: formData.mobileSelf,
+                        mobileNumber: formData.mobileNumber,
+                        mobileRelativeNumber: formData.mobileRelativeNumber,
+
+                        emailSelf: formData.emailSelf,
+                        email: formData.emailId,
+                        emailRelative: formData.emailRelative,
+
+                        houseNo: '000',
+                        streetArea: 'Street',
+                        villageTown: formData.declVillage,
+                        district: formData.district,
+                        state: formData.state,
+                        pincode: '000000',
+
+                        relativeName: formData.relativeName,
+                        relativeSurname: formData.relativeSurname,
+                        relationType: formData.relationType,
+
+                        disabilityOtherSpec: formData.disabilityOtherSpec,
+                        disabilityCategories: formData.disabilityCategories,
+
+                        image: formData.image,
+                        dobProofFile: null,
+                        addressProofFile: null,
+                        disabilityFile: formData.disabilityFile
+                    }
+                };
+
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error || "Submission failed");
+                }
+
+                const data = await response.json();
+                setReferenceId(data.referenceId);
+                setStatus('Application Submitted Successfully');
+
+            } catch (err) {
+                console.error("Submission Error:", err);
+                setError(err.message);
+                setStatus('Submission Failed');
+            }
+        };
+
+        submitApplication();
+    }, [formData]);
+
+    // Render Logic
+    if (error) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50">
-                <p className="text-gray-600 mb-4">No submission data found.</p>
-                <button
-                    onClick={() => navigate('/')}
-                    className="text-white bg-blue-600 px-6 py-2 rounded hover:bg-blue-700"
-                >
-                    Return to Home
-                </button>
-            </div>
+            <ECILayout activeStep="Success">
+                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
+                    <div className="bg-red-50 p-8 rounded-2xl border border-red-100 shadow-sm max-w-lg w-full">
+                        <div className="w-16 h-16 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-3xl">⚠️</span>
+                        </div>
+                        <h2 className="text-2xl font-bold text-gray-800 mb-2">Submission Failed</h2>
+                        <p className="text-gray-600 mb-6">{error}</p>
+                        <button
+                            onClick={() => navigate('/dashboard')}
+                            className="bg-gray-800 text-white px-6 py-2 rounded-lg hover:bg-gray-900 transition-colors"
+                        >
+                            Return to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </ECILayout>
         );
     }
 
     return (
         <ECILayout activeStep="Success">
             <div className="flex flex-col items-center justify-center min-h-[60vh] text-center p-6">
-                <div className="bg-green-100 p-4 rounded-full mb-6">
-                    <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
 
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">Application Submitted!</h2>
+                {referenceId ? (
+                    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 max-w-lg w-full">
+                        <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-2">Application Submitted!</h2>
+                        <p className="text-gray-500 mb-6">Your application has been successfully submitted to the Election Commission.</p>
 
-                <p className="text-gray-600 mb-8 max-w-md">
-                    Thank you, <span className="font-bold text-gray-800">{name || 'User'}</span>. Your application for voter registration has been submitted.
-                </p>
+                        <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 mb-8">
+                            <p className="text-sm text-blue-600 font-medium uppercase tracking-wide mb-1">Reference ID</p>
+                            <p className="text-3xl font-mono font-bold text-blue-900 tracking-wider select-all">
+                                {referenceId}
+                            </p>
+                        </div>
 
-                <div className="grid gap-4 w-full max-w-md mb-8">
-                    <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
-                        <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Application Reference ID</p>
-                        <p className="text-2xl font-mono font-bold text-purple-600 select-all">{referenceId || 'N/A'}</p>
-                        <p className="text-xs text-gray-400 mt-1">Use this to track your application status.</p>
+                        <div className="space-y-3">
+                            <button
+                                onClick={() => window.print()}
+                                className="w-full bg-white border border-gray-300 text-gray-700 font-semibold py-3 rounded-xl hover:bg-gray-50 transition-colors"
+                            >
+                                Download Acknowledgement
+                            </button>
+                            <button
+                                onClick={() => navigate('/')}
+                                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-3 rounded-xl shadow-md hover:shadow-lg transition-all"
+                            >
+                                Back to Home
+                            </button>
+                        </div>
                     </div>
-
-                    <div className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm">
-                        <p className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Voter ID</p>
-                        <p className="text-xl font-mono font-bold text-gray-800 select-all">{voterId}</p>
+                ) : (
+                    <div className="flex flex-col items-center py-10">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+                        <p className="text-lg font-medium text-gray-600">{status}</p>
                     </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
-                    <button
-                        onClick={() => navigate('/track-status')}
-                        className="flex-1 px-6 py-3 bg-purple-600 text-white font-bold rounded-lg hover:bg-purple-700 shadow-sm transition-colors"
-                    >
-                        Track Status
-                    </button>
-                    <button
-                        onClick={() => navigate('/')}
-                        className="flex-1 px-6 py-3 bg-white border border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                        Back to Home
-                    </button>
-                </div>
+                )}
             </div>
         </ECILayout>
     );
