@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRegistration } from '../context/RegistrationContext';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
-import { locationData } from '../data/locationData';
+
 
 const IdentityCheck = () => {
     const navigate = useNavigate();
@@ -12,27 +12,41 @@ const IdentityCheck = () => {
     // Initialize local state from global store or defaults
     const [constituencyType, setConstituencyType] = useState(formData.constituencyType || 'assembly');
 
+    // Dynamic Location Data
+    const [locationData, setLocationData] = useState({});
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadData = async () => {
+            const { fetchLocationData } = await import('../utils/api');
+            const data = await fetchLocationData();
+            setLocationData(data);
+            setLoading(false);
+        };
+        loadData();
+    }, []);
+
     // Derived lists based on selection
     const [availableDistricts, setAvailableDistricts] = useState([]);
     const [availableConstituencies, setAvailableConstituencies] = useState([]);
 
     // Update Districts when State changes
     useEffect(() => {
-        if (formData.state && locationData[formData.state]) {
+        if (!loading && formData.state && locationData[formData.state]) {
             setAvailableDistricts(Object.keys(locationData[formData.state].districts));
         } else {
             setAvailableDistricts([]);
         }
-    }, [formData.state]);
+    }, [formData.state, locationData, loading]);
 
     // Update Constituencies when District changes
     useEffect(() => {
-        if (formData.state && formData.district && locationData[formData.state] && locationData[formData.state].districts[formData.district]) {
+        if (!loading && formData.state && formData.district && locationData[formData.state] && locationData[formData.state].districts[formData.district]) {
             setAvailableConstituencies(locationData[formData.state].districts[formData.district]);
         } else {
             setAvailableConstituencies([]);
         }
-    }, [formData.state, formData.district]);
+    }, [formData.state, formData.district, locationData, loading]);
 
     // Auto-fill Constituency Number when Constituency changes
     const handleConstituencyChange = (e) => {
