@@ -1099,18 +1099,1313 @@ export const locationData = {
     "Maharashtra": {
         "districts": {
             "Mumbai City": [
-                { "name": "Colaba", "number": "187" }, { "name": "Mumbadevi", "number": "186" }, { "name": "Malabar Hill", "number": "185" },
-                { "name": "Byculla", "number": "184" }, { "name": "Sion Koliwada", "number": "179" }, { "name": "Wadala", "number": "180" },
-                { "name": "Mahim", "number": "181" }, { "name": "Worli", "number": "182" }, { "name": "Shivadi", "number": "183" },
-                { "name": "Dharavi", "number": "178" }
+                {
+                    "name": "Colaba",
+                    "number": "187"
+                },
+                {
+                    "name": "Mumbadevi",
+                    "number": "186"
+                },
+                {
+                    "name": "Malabar Hill",
+                    "number": "185"
+                },
+                {
+                    "name": "Byculla",
+                    "number": "184"
+                },
+                {
+                    "name": "Sion Koliwada",
+                    "number": "179"
+                },
+                {
+                    "name": "Wadala",
+                    "number": "180"
+                },
+                {
+                    "name": "Mahim",
+                    "number": "181"
+                },
+                {
+                    "name": "Worli",
+                    "number": "182"
+                },
+                {
+                    "name": "Shivadi",
+                    "number": "183"
+                },
+                {
+                    "name": "Dharavi",
+                    "number": "178"
+                },
+                {
+                    "name": "Dharavi",
+                    "number": "181"
+                },
+                {
+                    "name": "Sion Koliwada",
+                    "number": "180"
+                },
+                {
+                    "name": "Wadala",
+                    "number": "182"
+                },
+                {
+                    "name": "Mahim",
+                    "number": "183"
+                },
+                {
+                    "name": "Worli",
+                    "number": "184"
+                },
+                {
+                    "name": "Shivadi",
+                    "number": "185"
+                },
+                {
+                    "name": "Byculla",
+                    "number": "186"
+                },
+                {
+                    "name": "Malabar Hill",
+                    "number": "187"
+                },
+                {
+                    "name": "Mumbadevi",
+                    "number": "188"
+                },
+                {
+                    "name": "Colaba",
+                    "number": "189"
+                }
             ],
             "Pune": [
-                { "name": "Kasba Peth", "number": "215" }, { "name": "Pune Cantonment", "number": "214" }, { "name": "Parvati", "number": "212" },
-                { "name": "Hadapsar", "number": "213" }, { "name": "Kothrud", "number": "210" }, { "name": "Shivajinagar", "number": "209" }
+                {
+                    "name": "Kasba Peth",
+                    "number": "215"
+                },
+                {
+                    "name": "Pune Cantonment",
+                    "number": "214"
+                },
+                {
+                    "name": "Parvati",
+                    "number": "212"
+                },
+                {
+                    "name": "Hadapsar",
+                    "number": "213"
+                },
+                {
+                    "name": "Kothrud",
+                    "number": "210"
+                },
+                {
+                    "name": "Shivajinagar",
+                    "number": "209"
+                },
+                {
+                    "name": "Junnar",
+                    "number": "274"
+                },
+                {
+                    "name": "Ambegaon",
+                    "number": "275"
+                },
+                {
+                    "name": "Khed Alandi",
+                    "number": "276"
+                },
+                {
+                    "name": "Shirur",
+                    "number": "277"
+                },
+                {
+                    "name": "Daund",
+                    "number": "278"
+                },
+                {
+                    "name": "Indapur",
+                    "number": "279"
+                },
+                {
+                    "name": "Baramati",
+                    "number": "280"
+                },
+                {
+                    "name": "Purandar",
+                    "number": "281"
+                },
+                {
+                    "name": "Bhor",
+                    "number": "282"
+                },
+                {
+                    "name": "Maval",
+                    "number": "283"
+                },
+                {
+                    "name": "Chinchwad",
+                    "number": "284"
+                },
+                {
+                    "name": "Pimpri",
+                    "number": "285"
+                },
+                {
+                    "name": "Bhosari",
+                    "number": "286"
+                },
+                {
+                    "name": "Vadgaon Sheri",
+                    "number": "287"
+                },
+                {
+                    "name": "Shivajinagar",
+                    "number": "288"
+                }
             ],
-            "Nagpur": [{ "name": "Nagpur South West", "number": "52" }, { "name": "Nagpur South", "number": "53" }, { "name": "Nagpur East", "number": "54" }, { "name": "Nagpur Central", "number": "55" }, { "name": "Nagpur West", "number": "56" }, { "name": "Nagpur North", "number": "57" }],
-            "Thane": [{ "name": "Thane", "number": "148" }, { "name": "Kopri-Pachpakhadi", "number": "147" }],
-            "Nashik": [{ "name": "Nashik Central", "number": "124" }, { "name": "Nashik West", "number": "125" }]
+            "Nagpur": [
+                {
+                    "name": "Nagpur South West",
+                    "number": "52"
+                },
+                {
+                    "name": "Nagpur South",
+                    "number": "53"
+                },
+                {
+                    "name": "Nagpur East",
+                    "number": "54"
+                },
+                {
+                    "name": "Nagpur Central",
+                    "number": "55"
+                },
+                {
+                    "name": "Nagpur West",
+                    "number": "56"
+                },
+                {
+                    "name": "Nagpur North",
+                    "number": "57"
+                },
+                {
+                    "name": "Katol",
+                    "number": "48"
+                },
+                {
+                    "name": "Savner",
+                    "number": "49"
+                },
+                {
+                    "name": "Hingna",
+                    "number": "50"
+                },
+                {
+                    "name": "Umred",
+                    "number": "51"
+                },
+                {
+                    "name": "Nagpur South West",
+                    "number": "52"
+                },
+                {
+                    "name": "Nagpur South",
+                    "number": "53"
+                },
+                {
+                    "name": "Nagpur East",
+                    "number": "54"
+                },
+                {
+                    "name": "Nagpur Central",
+                    "number": "55"
+                },
+                {
+                    "name": "Nagpur West",
+                    "number": "56"
+                },
+                {
+                    "name": "Nagpur North",
+                    "number": "57"
+                },
+                {
+                    "name": "Kamthi",
+                    "number": "58"
+                },
+                {
+                    "name": "Ramtek",
+                    "number": "59"
+                }
+            ],
+            "Thane": [
+                {
+                    "name": "Thane",
+                    "number": "148"
+                },
+                {
+                    "name": "Kopri-Pachpakhadi",
+                    "number": "147"
+                },
+                {
+                    "name": "Bhiwandi Rural",
+                    "number": "134"
+                },
+                {
+                    "name": "Shahapur",
+                    "number": "135"
+                },
+                {
+                    "name": "Bhiwandi West",
+                    "number": "136"
+                },
+                {
+                    "name": "Bhiwandi East",
+                    "number": "137"
+                },
+                {
+                    "name": "Kalyan West",
+                    "number": "138"
+                },
+                {
+                    "name": "Murbad",
+                    "number": "139"
+                },
+                {
+                    "name": "Ambernath",
+                    "number": "140"
+                },
+                {
+                    "name": "Ulhasnagar",
+                    "number": "141"
+                },
+                {
+                    "name": "Kalyan East",
+                    "number": "142"
+                },
+                {
+                    "name": "Dombivali",
+                    "number": "143"
+                },
+                {
+                    "name": "Kalyan Rural",
+                    "number": "144"
+                },
+                {
+                    "name": "Mira Bhayandar",
+                    "number": "145"
+                },
+                {
+                    "name": "Ovala-Majiwada",
+                    "number": "146"
+                },
+                {
+                    "name": "Kopri-Pachpakhadi",
+                    "number": "147"
+                },
+                {
+                    "name": "Thane",
+                    "number": "148"
+                },
+                {
+                    "name": "Mumbra-Kalwa",
+                    "number": "149"
+                },
+                {
+                    "name": "Airoli",
+                    "number": "150"
+                },
+                {
+                    "name": "Belapur",
+                    "number": "151"
+                }
+            ],
+            "Nashik": [
+                {
+                    "name": "Nashik Central",
+                    "number": "124"
+                },
+                {
+                    "name": "Nashik West",
+                    "number": "125"
+                },
+                {
+                    "name": "Nandgaon",
+                    "number": "113"
+                },
+                {
+                    "name": "Malegaon Central",
+                    "number": "114"
+                },
+                {
+                    "name": "Malegaon Outer",
+                    "number": "115"
+                },
+                {
+                    "name": "Baglan",
+                    "number": "116"
+                },
+                {
+                    "name": "Kalwan",
+                    "number": "117"
+                },
+                {
+                    "name": "Chandwad",
+                    "number": "118"
+                },
+                {
+                    "name": "Yevla",
+                    "number": "119"
+                },
+                {
+                    "name": "Sinnar",
+                    "number": "120"
+                },
+                {
+                    "name": "Niphad",
+                    "number": "121"
+                },
+                {
+                    "name": "Dindori",
+                    "number": "122"
+                },
+                {
+                    "name": "Nashik East",
+                    "number": "123"
+                },
+                {
+                    "name": "Nashik Central",
+                    "number": "124"
+                },
+                {
+                    "name": "Nashik West",
+                    "number": "125"
+                },
+                {
+                    "name": "Deolali",
+                    "number": "126"
+                },
+                {
+                    "name": "Igatpuri",
+                    "number": "127"
+                }
+            ],
+            "Ahmednagar": [
+                {
+                    "name": "Akole",
+                    "number": "260"
+                },
+                {
+                    "name": "Sangamner",
+                    "number": "261"
+                },
+                {
+                    "name": "Shirdi",
+                    "number": "262"
+                },
+                {
+                    "name": "Rahuri",
+                    "number": "263"
+                },
+                {
+                    "name": "Parner",
+                    "number": "264"
+                },
+                {
+                    "name": "Ahmednagar City",
+                    "number": "265"
+                },
+                {
+                    "name": "Shrigonda",
+                    "number": "266"
+                },
+                {
+                    "name": "Karjat Jamkhed",
+                    "number": "267"
+                },
+                {
+                    "name": "Shevgaon",
+                    "number": "269"
+                },
+                {
+                    "name": "Nevasa",
+                    "number": "271"
+                },
+                {
+                    "name": "Kopargaon",
+                    "number": "272"
+                },
+                {
+                    "name": "Shrirampur",
+                    "number": "273"
+                }
+            ],
+            "Akola": [
+                {
+                    "name": "Akot",
+                    "number": "28"
+                },
+                {
+                    "name": "Balapur",
+                    "number": "29"
+                },
+                {
+                    "name": "Akola West",
+                    "number": "30"
+                },
+                {
+                    "name": "Akola East",
+                    "number": "31"
+                },
+                {
+                    "name": "Murtizapur",
+                    "number": "32"
+                }
+            ],
+            "Amravati": [
+                {
+                    "name": "Dhamangaon Railway",
+                    "number": "36"
+                },
+                {
+                    "name": "Badnera",
+                    "number": "37"
+                },
+                {
+                    "name": "Amravati",
+                    "number": "38"
+                },
+                {
+                    "name": "Teosa",
+                    "number": "39"
+                },
+                {
+                    "name": "Daryapur",
+                    "number": "40"
+                },
+                {
+                    "name": "Melghat",
+                    "number": "41"
+                },
+                {
+                    "name": "Achalpur",
+                    "number": "42"
+                },
+                {
+                    "name": "Morshi",
+                    "number": "43"
+                }
+            ],
+            "Aurangabad": [
+                {
+                    "name": "Sillod",
+                    "number": "104"
+                },
+                {
+                    "name": "Kannad",
+                    "number": "105"
+                },
+                {
+                    "name": "Phulambri",
+                    "number": "106"
+                },
+                {
+                    "name": "Aurangabad Central",
+                    "number": "107"
+                },
+                {
+                    "name": "Aurangabad West",
+                    "number": "108"
+                },
+                {
+                    "name": "Aurangabad East",
+                    "number": "109"
+                },
+                {
+                    "name": "Paithan",
+                    "number": "110"
+                },
+                {
+                    "name": "Gangapur",
+                    "number": "111"
+                },
+                {
+                    "name": "Vaijapur",
+                    "number": "112"
+                }
+            ],
+            "Beed": [
+                {
+                    "name": "Parli",
+                    "number": "254"
+                },
+                {
+                    "name": "Kaij",
+                    "number": "255"
+                },
+                {
+                    "name": "Majalgaon",
+                    "number": "256"
+                },
+                {
+                    "name": "Beed",
+                    "number": "257"
+                },
+                {
+                    "name": "Ashti",
+                    "number": "258"
+                },
+                {
+                    "name": "Georai",
+                    "number": "259"
+                }
+            ],
+            "Bhandara": [
+                {
+                    "name": "Tumsar",
+                    "number": "60"
+                },
+                {
+                    "name": "Bhandara",
+                    "number": "61"
+                },
+                {
+                    "name": "Sakoli",
+                    "number": "62"
+                }
+            ],
+            "Buldhana": [
+                {
+                    "name": "Malkapur",
+                    "number": "21"
+                },
+                {
+                    "name": "Buldhana",
+                    "number": "22"
+                },
+                {
+                    "name": "Chikhli",
+                    "number": "23"
+                },
+                {
+                    "name": "Sindkhed Raja",
+                    "number": "24"
+                },
+                {
+                    "name": "Mehkar",
+                    "number": "25"
+                },
+                {
+                    "name": "Khamgaon",
+                    "number": "26"
+                },
+                {
+                    "name": "Jalgaon (Jamod)",
+                    "number": "27"
+                }
+            ],
+            "Chandrapur": [
+                {
+                    "name": "Rajura",
+                    "number": "70"
+                },
+                {
+                    "name": "Chandrapur",
+                    "number": "71"
+                },
+                {
+                    "name": "Ballarpur",
+                    "number": "72"
+                },
+                {
+                    "name": "Bramhapuri",
+                    "number": "73"
+                },
+                {
+                    "name": "Chimur",
+                    "number": "74"
+                },
+                {
+                    "name": "Warora",
+                    "number": "75"
+                }
+            ],
+            "Dhule": [
+                {
+                    "name": "Sakri",
+                    "number": "5"
+                },
+                {
+                    "name": "Dhule Rural",
+                    "number": "6"
+                },
+                {
+                    "name": "Dhule City",
+                    "number": "7"
+                },
+                {
+                    "name": "Sindkheda",
+                    "number": "8"
+                },
+                {
+                    "name": "Shirpur",
+                    "number": "9"
+                }
+            ],
+            "Gadchiroli": [
+                {
+                    "name": "Armori",
+                    "number": "67"
+                },
+                {
+                    "name": "Gadchiroli",
+                    "number": "68"
+                },
+                {
+                    "name": "Aheri",
+                    "number": "69"
+                }
+            ],
+            "Gondia": [
+                {
+                    "name": "Arjuni-Morgaon",
+                    "number": "63"
+                },
+                {
+                    "name": "Tirora",
+                    "number": "64"
+                },
+                {
+                    "name": "Gondia",
+                    "number": "65"
+                },
+                {
+                    "name": "Amgaon",
+                    "number": "66"
+                }
+            ],
+            "Hingoli": [
+                {
+                    "name": "Basmath",
+                    "number": "92"
+                },
+                {
+                    "name": "Kalamnuri",
+                    "number": "93"
+                },
+                {
+                    "name": "Hingoli",
+                    "number": "94"
+                }
+            ],
+            "Jalgaon": [
+                {
+                    "name": "Chopda",
+                    "number": "10"
+                },
+                {
+                    "name": "Raver",
+                    "number": "11"
+                },
+                {
+                    "name": "Bhusawal",
+                    "number": "12"
+                },
+                {
+                    "name": "Jalgaon City",
+                    "number": "13"
+                },
+                {
+                    "name": "Jalgaon Rural",
+                    "number": "14"
+                },
+                {
+                    "name": "Amalner",
+                    "number": "15"
+                },
+                {
+                    "name": "Erandol",
+                    "number": "16"
+                },
+                {
+                    "name": "Chalisgaon",
+                    "number": "17"
+                },
+                {
+                    "name": "Pachora",
+                    "number": "18"
+                },
+                {
+                    "name": "Jamner",
+                    "number": "19"
+                },
+                {
+                    "name": "Muktainagar",
+                    "number": "20"
+                }
+            ],
+            "Jalna": [
+                {
+                    "name": "Partur",
+                    "number": "99"
+                },
+                {
+                    "name": "Ghansawangi",
+                    "number": "100"
+                },
+                {
+                    "name": "Jalna",
+                    "number": "101"
+                },
+                {
+                    "name": "Badnapur",
+                    "number": "102"
+                },
+                {
+                    "name": "Bhokardan",
+                    "number": "103"
+                }
+            ],
+            "Kolhapur": [
+                {
+                    "name": "Chandgad",
+                    "number": "206"
+                },
+                {
+                    "name": "Radhanagari",
+                    "number": "207"
+                },
+                {
+                    "name": "Kagal",
+                    "number": "208"
+                },
+                {
+                    "name": "Kolhapur South",
+                    "number": "209"
+                },
+                {
+                    "name": "Karvir",
+                    "number": "210"
+                },
+                {
+                    "name": "Kolhapur North",
+                    "number": "211"
+                },
+                {
+                    "name": "Shahuwadi",
+                    "number": "212"
+                },
+                {
+                    "name": "Hatkanangle",
+                    "number": "213"
+                },
+                {
+                    "name": "Ichalkaranji",
+                    "number": "214"
+                },
+                {
+                    "name": "Shirol",
+                    "number": "215"
+                }
+            ],
+            "Latur": [
+                {
+                    "name": "Latur Rural",
+                    "number": "247"
+                },
+                {
+                    "name": "Latur City",
+                    "number": "248"
+                },
+                {
+                    "name": "Ahmedpur",
+                    "number": "249"
+                },
+                {
+                    "name": "Udgir",
+                    "number": "250"
+                },
+                {
+                    "name": "Nilanga",
+                    "number": "251"
+                },
+                {
+                    "name": "Ausa",
+                    "number": "252"
+                }
+            ],
+            "Mumbai Suburban": [
+                {
+                    "name": "Borivali",
+                    "number": "152"
+                },
+                {
+                    "name": "Dahisar",
+                    "number": "153"
+                },
+                {
+                    "name": "Magathane",
+                    "number": "154"
+                },
+                {
+                    "name": "Mulund",
+                    "number": "155"
+                },
+                {
+                    "name": "Vikhroli",
+                    "number": "156"
+                },
+                {
+                    "name": "Bhandup West",
+                    "number": "157"
+                },
+                {
+                    "name": "Jogeshwari East",
+                    "number": "158"
+                },
+                {
+                    "name": "Dindoshi",
+                    "number": "159"
+                },
+                {
+                    "name": "Kandivli East",
+                    "number": "160"
+                },
+                {
+                    "name": "Charkop",
+                    "number": "161"
+                },
+                {
+                    "name": "Malad West",
+                    "number": "162"
+                },
+                {
+                    "name": "Goregaon",
+                    "number": "163"
+                },
+                {
+                    "name": "Versova",
+                    "number": "164"
+                },
+                {
+                    "name": "Andheri West",
+                    "number": "165"
+                },
+                {
+                    "name": "Andheri East",
+                    "number": "166"
+                },
+                {
+                    "name": "Vile Parle",
+                    "number": "167"
+                },
+                {
+                    "name": "Chandivali",
+                    "number": "168"
+                },
+                {
+                    "name": "Ghatkopar West",
+                    "number": "169"
+                },
+                {
+                    "name": "Ghatkopar East",
+                    "number": "170"
+                },
+                {
+                    "name": "Mankhurd Shivajinagar",
+                    "number": "171"
+                },
+                {
+                    "name": "Anushakti Nagar",
+                    "number": "172"
+                },
+                {
+                    "name": "Chembur",
+                    "number": "173"
+                },
+                {
+                    "name": "Kurla",
+                    "number": "174"
+                },
+                {
+                    "name": "Kalina",
+                    "number": "175"
+                },
+                {
+                    "name": "Vandre East",
+                    "number": "176"
+                },
+                {
+                    "name": "Vandre West",
+                    "number": "177"
+                }
+            ],
+            "Nanded": [
+                {
+                    "name": "Umarkhed",
+                    "number": "82"
+                },
+                {
+                    "name": "Kinwat",
+                    "number": "83"
+                },
+                {
+                    "name": "Hadgaon",
+                    "number": "84"
+                },
+                {
+                    "name": "Bhokar",
+                    "number": "85"
+                },
+                {
+                    "name": "Nanded North",
+                    "number": "86"
+                },
+                {
+                    "name": "Nanded South",
+                    "number": "87"
+                },
+                {
+                    "name": "Loha",
+                    "number": "88"
+                },
+                {
+                    "name": "Naigaon",
+                    "number": "89"
+                },
+                {
+                    "name": "Deglur",
+                    "number": "90"
+                },
+                {
+                    "name": "Mukhed",
+                    "number": "91"
+                }
+            ],
+            "Nandurbar": [
+                {
+                    "name": "Akkalkuwa",
+                    "number": "1"
+                },
+                {
+                    "name": "Shahada",
+                    "number": "2"
+                },
+                {
+                    "name": "Nandurbar",
+                    "number": "3"
+                },
+                {
+                    "name": "Navapur",
+                    "number": "4"
+                }
+            ],
+            "Osmanabad": [
+                {
+                    "name": "Tuljapur",
+                    "number": "243"
+                },
+                {
+                    "name": "Umarga",
+                    "number": "244"
+                },
+                {
+                    "name": "Lohara",
+                    "number": "245"
+                },
+                {
+                    "name": "Osmanabad",
+                    "number": "246"
+                }
+            ],
+            "Palghar": [
+                {
+                    "name": "Dahanu",
+                    "number": "128"
+                },
+                {
+                    "name": "Vikramgad",
+                    "number": "129"
+                },
+                {
+                    "name": "Palghar",
+                    "number": "130"
+                },
+                {
+                    "name": "Boisar",
+                    "number": "131"
+                },
+                {
+                    "name": "Nallasopara",
+                    "number": "132"
+                },
+                {
+                    "name": "Vasai",
+                    "number": "133"
+                }
+            ],
+            "Parbhani": [
+                {
+                    "name": "Jintur",
+                    "number": "95"
+                },
+                {
+                    "name": "Parbhani",
+                    "number": "96"
+                },
+                {
+                    "name": "Gangakhed",
+                    "number": "97"
+                },
+                {
+                    "name": "Pathri",
+                    "number": "98"
+                }
+            ],
+            "Raigad": [
+                {
+                    "name": "Panvel",
+                    "number": "191"
+                },
+                {
+                    "name": "Karjat",
+                    "number": "192"
+                },
+                {
+                    "name": "Uran",
+                    "number": "193"
+                },
+                {
+                    "name": "Pen",
+                    "number": "194"
+                },
+                {
+                    "name": "Alibag",
+                    "number": "195"
+                },
+                {
+                    "name": "Shrivardhan",
+                    "number": "196"
+                },
+                {
+                    "name": "Mahad",
+                    "number": "197"
+                }
+            ],
+            "Ratnagiri": [
+                {
+                    "name": "Dapoli",
+                    "number": "198"
+                },
+                {
+                    "name": "Guhagar",
+                    "number": "199"
+                },
+                {
+                    "name": "Chiplun",
+                    "number": "200"
+                },
+                {
+                    "name": "Ratnagiri",
+                    "number": "201"
+                },
+                {
+                    "name": "Rajapur",
+                    "number": "202"
+                }
+            ],
+            "Sangli": [
+                {
+                    "name": "Miraj",
+                    "number": "216"
+                },
+                {
+                    "name": "Sangli",
+                    "number": "217"
+                },
+                {
+                    "name": "Palus-Kadegaon",
+                    "number": "218"
+                },
+                {
+                    "name": "Khanapur",
+                    "number": "219"
+                },
+                {
+                    "name": "Tasgaon-Kavathe Mahankal",
+                    "number": "220"
+                },
+                {
+                    "name": "Jat",
+                    "number": "221"
+                },
+                {
+                    "name": "Islampur",
+                    "number": "222"
+                },
+                {
+                    "name": "Shirala",
+                    "number": "223"
+                }
+            ],
+            "Satara": [
+                {
+                    "name": "Patan",
+                    "number": "224"
+                },
+                {
+                    "name": "Karad North",
+                    "number": "225"
+                },
+                {
+                    "name": "Karad South",
+                    "number": "226"
+                },
+                {
+                    "name": "Koregaon",
+                    "number": "227"
+                },
+                {
+                    "name": "Wai",
+                    "number": "228"
+                },
+                {
+                    "name": "Phaltan",
+                    "number": "229"
+                },
+                {
+                    "name": "Man",
+                    "number": "230"
+                },
+                {
+                    "name": "Satara",
+                    "number": "231"
+                }
+            ],
+            "Sindhudurg": [
+                {
+                    "name": "Kankavli",
+                    "number": "203"
+                },
+                {
+                    "name": "Kudal",
+                    "number": "204"
+                },
+                {
+                    "name": "Sawantwadi",
+                    "number": "205"
+                }
+            ],
+            "Solapur": [
+                {
+                    "name": "Karmala",
+                    "number": "232"
+                },
+                {
+                    "name": "Madha",
+                    "number": "233"
+                },
+                {
+                    "name": "Barshi",
+                    "number": "234"
+                },
+                {
+                    "name": "Mohol",
+                    "number": "235"
+                },
+                {
+                    "name": "Solapur North",
+                    "number": "236"
+                },
+                {
+                    "name": "Solapur City Central",
+                    "number": "237"
+                },
+                {
+                    "name": "Akkalkot",
+                    "number": "238"
+                },
+                {
+                    "name": "Solapur South",
+                    "number": "239"
+                },
+                {
+                    "name": "Pandharpur",
+                    "number": "240"
+                },
+                {
+                    "name": "Sangola",
+                    "number": "241"
+                },
+                {
+                    "name": "Malshiras",
+                    "number": "242"
+                }
+            ],
+            "Wardha": [
+                {
+                    "name": "Morshi",
+                    "number": "43"
+                },
+                {
+                    "name": "Arvi",
+                    "number": "44"
+                },
+                {
+                    "name": "Deoli",
+                    "number": "45"
+                },
+                {
+                    "name": "Hinganghat",
+                    "number": "46"
+                },
+                {
+                    "name": "Wardha",
+                    "number": "47"
+                }
+            ],
+            "Washim": [
+                {
+                    "name": "Risod",
+                    "number": "33"
+                },
+                {
+                    "name": "Washim",
+                    "number": "34"
+                },
+                {
+                    "name": "Karanja",
+                    "number": "35"
+                }
+            ],
+            "Yavatmal": [
+                {
+                    "name": "Wani",
+                    "number": "76"
+                },
+                {
+                    "name": "Ralegaon",
+                    "number": "77"
+                },
+                {
+                    "name": "Yavatmal",
+                    "number": "78"
+                },
+                {
+                    "name": "Digras",
+                    "number": "79"
+                },
+                {
+                    "name": "Arni",
+                    "number": "80"
+                },
+                {
+                    "name": "Pusad",
+                    "number": "81"
+                }
+            ]
         }
     },
     "Manipur": {
@@ -1269,186 +2564,6 @@ export const locationData = {
         }
     },
 
-    "Maharashtra": {
-        "districts": {
-            "Ahmednagar": [
-                { "name": "Akole", "number": "260" }, { "name": "Sangamner", "number": "261" }, { "name": "Shirdi", "number": "262" },
-                { "name": "Rahuri", "number": "263" }, { "name": "Parner", "number": "264" }, { "name": "Ahmednagar City", "number": "265" },
-                { "name": "Shrigonda", "number": "266" }, { "name": "Karjat Jamkhed", "number": "267" }, { "name": "Shevgaon", "number": "269" },
-                { "name": "Nevasa", "number": "271" }, { "name": "Kopargaon", "number": "272" }, { "name": "Shrirampur", "number": "273" }
-            ],
-            "Akola": [
-                { "name": "Akot", "number": "28" }, { "name": "Balapur", "number": "29" }, { "name": "Akola West", "number": "30" },
-                { "name": "Akola East", "number": "31" }, { "name": "Murtizapur", "number": "32" }
-            ],
-            "Amravati": [
-                { "name": "Dhamangaon Railway", "number": "36" }, { "name": "Badnera", "number": "37" }, { "name": "Amravati", "number": "38" },
-                { "name": "Teosa", "number": "39" }, { "name": "Daryapur", "number": "40" }, { "name": "Melghat", "number": "41" },
-                { "name": "Achalpur", "number": "42" }, { "name": "Morshi", "number": "43" }
-            ],
-            "Aurangabad": [
-                { "name": "Sillod", "number": "104" }, { "name": "Kannad", "number": "105" }, { "name": "Phulambri", "number": "106" },
-                { "name": "Aurangabad Central", "number": "107" }, { "name": "Aurangabad West", "number": "108" }, { "name": "Aurangabad East", "number": "109" },
-                { "name": "Paithan", "number": "110" }, { "name": "Gangapur", "number": "111" }, { "name": "Vaijapur", "number": "112" }
-            ],
-            "Beed": [
-                { "name": "Parli", "number": "254" }, { "name": "Kaij", "number": "255" }, { "name": "Majalgaon", "number": "256" },
-                { "name": "Beed", "number": "257" }, { "name": "Ashti", "number": "258" }, { "name": "Georai", "number": "259" }
-            ],
-            "Bhandara": [
-                { "name": "Tumsar", "number": "60" }, { "name": "Bhandara", "number": "61" }, { "name": "Sakoli", "number": "62" }
-            ],
-            "Buldhana": [
-                { "name": "Malkapur", "number": "21" }, { "name": "Buldhana", "number": "22" }, { "name": "Chikhli", "number": "23" },
-                { "name": "Sindkhed Raja", "number": "24" }, { "name": "Mehkar", "number": "25" }, { "name": "Khamgaon", "number": "26" },
-                { "name": "Jalgaon (Jamod)", "number": "27" }
-            ],
-            "Chandrapur": [
-                { "name": "Rajura", "number": "70" }, { "name": "Chandrapur", "number": "71" }, { "name": "Ballarpur", "number": "72" },
-                { "name": "Bramhapuri", "number": "73" }, { "name": "Chimur", "number": "74" }, { "name": "Warora", "number": "75" }
-            ],
-            "Dhule": [
-                { "name": "Sakri", "number": "5" }, { "name": "Dhule Rural", "number": "6" }, { "name": "Dhule City", "number": "7" },
-                { "name": "Sindkheda", "number": "8" }, { "name": "Shirpur", "number": "9" }
-            ],
-            "Gadchiroli": [
-                { "name": "Armori", "number": "67" }, { "name": "Gadchiroli", "number": "68" }, { "name": "Aheri", "number": "69" }
-            ],
-            "Gondia": [
-                { "name": "Arjuni-Morgaon", "number": "63" }, { "name": "Tirora", "number": "64" }, { "name": "Gondia", "number": "65" },
-                { "name": "Amgaon", "number": "66" }
-            ],
-            "Hingoli": [
-                { "name": "Basmath", "number": "92" }, { "name": "Kalamnuri", "number": "93" }, { "name": "Hingoli", "number": "94" }
-            ],
-            "Jalgaon": [
-                { "name": "Chopda", "number": "10" }, { "name": "Raver", "number": "11" }, { "name": "Bhusawal", "number": "12" },
-                { "name": "Jalgaon City", "number": "13" }, { "name": "Jalgaon Rural", "number": "14" }, { "name": "Amalner", "number": "15" },
-                { "name": "Erandol", "number": "16" }, { "name": "Chalisgaon", "number": "17" }, { "name": "Pachora", "number": "18" },
-                { "name": "Jamner", "number": "19" }, { "name": "Muktainagar", "number": "20" }
-            ],
-            "Jalna": [
-                { "name": "Partur", "number": "99" }, { "name": "Ghansawangi", "number": "100" }, { "name": "Jalna", "number": "101" },
-                { "name": "Badnapur", "number": "102" }, { "name": "Bhokardan", "number": "103" }
-            ],
-            "Kolhapur": [
-                { "name": "Chandgad", "number": "206" }, { "name": "Radhanagari", "number": "207" }, { "name": "Kagal", "number": "208" },
-                { "name": "Kolhapur South", "number": "209" }, { "name": "Karvir", "number": "210" }, { "name": "Kolhapur North", "number": "211" },
-                { "name": "Shahuwadi", "number": "212" }, { "name": "Hatkanangle", "number": "213" }, { "name": "Ichalkaranji", "number": "214" },
-                { "name": "Shirol", "number": "215" }
-            ],
-            "Latur": [
-                { "name": "Latur Rural", "number": "247" }, { "name": "Latur City", "number": "248" }, { "name": "Ahmedpur", "number": "249" },
-                { "name": "Udgir", "number": "250" }, { "name": "Nilanga", "number": "251" }, { "name": "Ausa", "number": "252" }
-            ],
-            "Mumbai City": [
-                { "name": "Dharavi", "number": "181" }, { "name": "Sion Koliwada", "number": "180" }, { "name": "Wadala", "number": "182" },
-                { "name": "Mahim", "number": "183" }, { "name": "Worli", "number": "184" }, { "name": "Shivadi", "number": "185" },
-                { "name": "Byculla", "number": "186" }, { "name": "Malabar Hill", "number": "187" }, { "name": "Mumbadevi", "number": "188" },
-                { "name": "Colaba", "number": "189" }
-            ],
-            "Mumbai Suburban": [
-                { "name": "Borivali", "number": "152" }, { "name": "Dahisar", "number": "153" }, { "name": "Magathane", "number": "154" },
-                { "name": "Mulund", "number": "155" }, { "name": "Vikhroli", "number": "156" }, { "name": "Bhandup West", "number": "157" },
-                { "name": "Jogeshwari East", "number": "158" }, { "name": "Dindoshi", "number": "159" }, { "name": "Kandivli East", "number": "160" },
-                { "name": "Charkop", "number": "161" }, { "name": "Malad West", "number": "162" }, { "name": "Goregaon", "number": "163" },
-                { "name": "Versova", "number": "164" }, { "name": "Andheri West", "number": "165" }, { "name": "Andheri East", "number": "166" },
-                { "name": "Vile Parle", "number": "167" }, { "name": "Chandivali", "number": "168" }, { "name": "Ghatkopar West", "number": "169" },
-                { "name": "Ghatkopar East", "number": "170" }, { "name": "Mankhurd Shivajinagar", "number": "171" }, { "name": "Anushakti Nagar", "number": "172" },
-                { "name": "Chembur", "number": "173" }, { "name": "Kurla", "number": "174" }, { "name": "Kalina", "number": "175" },
-                { "name": "Vandre East", "number": "176" }, { "name": "Vandre West", "number": "177" }
-            ],
-            "Nagpur": [
-                { "name": "Katol", "number": "48" }, { "name": "Savner", "number": "49" }, { "name": "Hingna", "number": "50" },
-                { "name": "Umred", "number": "51" }, { "name": "Nagpur South West", "number": "52" }, { "name": "Nagpur South", "number": "53" },
-                { "name": "Nagpur East", "number": "54" }, { "name": "Nagpur Central", "number": "55" }, { "name": "Nagpur West", "number": "56" },
-                { "name": "Nagpur North", "number": "57" }, { "name": "Kamthi", "number": "58" }, { "name": "Ramtek", "number": "59" }
-            ],
-            "Nanded": [
-                { "name": "Umarkhed", "number": "82" }, { "name": "Kinwat", "number": "83" }, { "name": "Hadgaon", "number": "84" },
-                { "name": "Bhokar", "number": "85" }, { "name": "Nanded North", "number": "86" }, { "name": "Nanded South", "number": "87" },
-                { "name": "Loha", "number": "88" }, { "name": "Naigaon", "number": "89" }, { "name": "Deglur", "number": "90" },
-                { "name": "Mukhed", "number": "91" }
-            ],
-            "Nandurbar": [
-                { "name": "Akkalkuwa", "number": "1" }, { "name": "Shahada", "number": "2" }, { "name": "Nandurbar", "number": "3" },
-                { "name": "Navapur", "number": "4" }
-            ],
-            "Nashik": [
-                { "name": "Nandgaon", "number": "113" }, { "name": "Malegaon Central", "number": "114" }, { "name": "Malegaon Outer", "number": "115" },
-                { "name": "Baglan", "number": "116" }, { "name": "Kalwan", "number": "117" }, { "name": "Chandwad", "number": "118" },
-                { "name": "Yevla", "number": "119" }, { "name": "Sinnar", "number": "120" }, { "name": "Niphad", "number": "121" },
-                { "name": "Dindori", "number": "122" }, { "name": "Nashik East", "number": "123" }, { "name": "Nashik Central", "number": "124" },
-                { "name": "Nashik West", "number": "125" }, { "name": "Deolali", "number": "126" }, { "name": "Igatpuri", "number": "127" }
-            ],
-            "Osmanabad": [
-                { "name": "Tuljapur", "number": "243" }, { "name": "Umarga", "number": "244" }, { "name": "Lohara", "number": "245" },
-                { "name": "Osmanabad", "number": "246" }
-            ],
-            "Palghar": [
-                { "name": "Dahanu", "number": "128" }, { "name": "Vikramgad", "number": "129" }, { "name": "Palghar", "number": "130" },
-                { "name": "Boisar", "number": "131" }, { "name": "Nallasopara", "number": "132" }, { "name": "Vasai", "number": "133" }
-            ],
-            "Parbhani": [
-                { "name": "Jintur", "number": "95" }, { "name": "Parbhani", "number": "96" }, { "name": "Gangakhed", "number": "97" },
-                { "name": "Pathri", "number": "98" }
-            ],
-            "Pune": [
-                { "name": "Junnar", "number": "274" }, { "name": "Ambegaon", "number": "275" }, { "name": "Khed Alandi", "number": "276" },
-                { "name": "Shirur", "number": "277" }, { "name": "Daund", "number": "278" }, { "name": "Indapur", "number": "279" },
-                { "name": "Baramati", "number": "280" }, { "name": "Purandar", "number": "281" }, { "name": "Bhor", "number": "282" },
-                { "name": "Maval", "number": "283" }, { "name": "Chinchwad", "number": "284" }, { "name": "Pimpri", "number": "285" },
-                { "name": "Bhosari", "number": "286" }, { "name": "Vadgaon Sheri", "number": "287" }, { "name": "Shivajinagar", "number": "288" }
-            ],
-            "Raigad": [
-                { "name": "Panvel", "number": "191" }, { "name": "Karjat", "number": "192" }, { "name": "Uran", "number": "193" },
-                { "name": "Pen", "number": "194" }, { "name": "Alibag", "number": "195" }, { "name": "Shrivardhan", "number": "196" },
-                { "name": "Mahad", "number": "197" }
-            ],
-            "Ratnagiri": [
-                { "name": "Dapoli", "number": "198" }, { "name": "Guhagar", "number": "199" }, { "name": "Chiplun", "number": "200" },
-                { "name": "Ratnagiri", "number": "201" }, { "name": "Rajapur", "number": "202" }
-            ],
-            "Sangli": [
-                { "name": "Miraj", "number": "216" }, { "name": "Sangli", "number": "217" }, { "name": "Palus-Kadegaon", "number": "218" },
-                { "name": "Khanapur", "number": "219" }, { "name": "Tasgaon-Kavathe Mahankal", "number": "220" }, { "name": "Jat", "number": "221" },
-                { "name": "Islampur", "number": "222" }, { "name": "Shirala", "number": "223" }
-            ],
-            "Satara": [
-                { "name": "Patan", "number": "224" }, { "name": "Karad North", "number": "225" }, { "name": "Karad South", "number": "226" },
-                { "name": "Koregaon", "number": "227" }, { "name": "Wai", "number": "228" }, { "name": "Phaltan", "number": "229" },
-                { "name": "Man", "number": "230" }, { "name": "Satara", "number": "231" }
-            ],
-            "Sindhudurg": [
-                { "name": "Kankavli", "number": "203" }, { "name": "Kudal", "number": "204" }, { "name": "Sawantwadi", "number": "205" }
-            ],
-            "Solapur": [
-                { "name": "Karmala", "number": "232" }, { "name": "Madha", "number": "233" }, { "name": "Barshi", "number": "234" },
-                { "name": "Mohol", "number": "235" }, { "name": "Solapur North", "number": "236" }, { "name": "Solapur City Central", "number": "237" },
-                { "name": "Akkalkot", "number": "238" }, { "name": "Solapur South", "number": "239" }, { "name": "Pandharpur", "number": "240" },
-                { "name": "Sangola", "number": "241" }, { "name": "Malshiras", "number": "242" }
-            ],
-            "Thane": [
-                { "name": "Bhiwandi Rural", "number": "134" }, { "name": "Shahapur", "number": "135" }, { "name": "Bhiwandi West", "number": "136" },
-                { "name": "Bhiwandi East", "number": "137" }, { "name": "Kalyan West", "number": "138" }, { "name": "Murbad", "number": "139" },
-                { "name": "Ambernath", "number": "140" }, { "name": "Ulhasnagar", "number": "141" }, { "name": "Kalyan East", "number": "142" },
-                { "name": "Dombivali", "number": "143" }, { "name": "Kalyan Rural", "number": "144" }, { "name": "Mira Bhayandar", "number": "145" },
-                { "name": "Ovala-Majiwada", "number": "146" }, { "name": "Kopri-Pachpakhadi", "number": "147" }, { "name": "Thane", "number": "148" },
-                { "name": "Mumbra-Kalwa", "number": "149" }, { "name": "Airoli", "number": "150" }, { "name": "Belapur", "number": "151" }
-            ],
-            "Wardha": [
-                { "name": "Morshi", "number": "43" }, { "name": "Arvi", "number": "44" }, { "name": "Deoli", "number": "45" },
-                { "name": "Hinganghat", "number": "46" }, { "name": "Wardha", "number": "47" }
-            ],
-            "Washim": [
-                { "name": "Risod", "number": "33" }, { "name": "Washim", "number": "34" }, { "name": "Karanja", "number": "35" }
-            ],
-            "Yavatmal": [
-                { "name": "Wani", "number": "76" }, { "name": "Ralegaon", "number": "77" }, { "name": "Yavatmal", "number": "78" },
-                { "name": "Digras", "number": "79" }, { "name": "Arni", "number": "80" }, { "name": "Pusad", "number": "81" }
-            ]
-        }
-    },
     "Tamil Nadu": {
         "districts": {
             "Ariyalur": [
