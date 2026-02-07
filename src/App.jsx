@@ -17,6 +17,7 @@ import Declaration from './pages/Declaration';
 import CaptchaDetails from './pages/CaptchaDetails';
 import FaceEnrollment from './pages/FaceEnrollment';
 import Success from './pages/Success';
+import ForgotPassword from './pages/ForgotPassword';
 
 import { FormProvider } from './context/FormContext';
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/captcha-details" element={<CaptchaDetails />} />
           <Route path="/face-enroll" element={<FaceEnrollment />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </FormProvider>
     </Router>
