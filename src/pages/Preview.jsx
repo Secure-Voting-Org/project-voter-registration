@@ -15,7 +15,7 @@ const Preview = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:8081/api/registration/submit', {
+            const response = await axios.post('http://localhost:5000/api/registration/submit', {
                 aadhaar: formData.aadhaarNumber || 'NO_AADHAAR',
                 formData: formData, // Contains Base64 files
                 faceDescriptor: formData.faceDescriptor
