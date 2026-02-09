@@ -81,6 +81,16 @@ const AadhaarDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
+                            if (!formData.aadhaarOption) {
+                                alert('Please select an Aadhaar option.');
+                                return;
+                            }
+                            if (formData.aadhaarOption === 'aadhaar') {
+                                if (!formData.aadhaarNumber || formData.aadhaarNumber.length !== 12) {
+                                    alert('Please enter a valid 12-digit Aadhaar number.');
+                                    return;
+                                }
+                            }
                             updateFormData({ aadhaar: formData.aadhaarNumber });
                             navigate('/gender-details');
                         }}

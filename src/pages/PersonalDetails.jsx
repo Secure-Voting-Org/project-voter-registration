@@ -11,6 +11,18 @@ const PersonalDetails = () => {
     // handleFileChange is now imported from context
 
     const handleNext = () => {
+        if (!formData.firstName) {
+            alert('Please enter your First Name.');
+            return;
+        }
+        // Check if image is uploaded (formData.image might be a File object or a string URL if already uploaded)
+        // Adjust based on how your context handles it. Assuming formData.image is the file object.
+        // If formData.image is null/undefined, block.
+        if (!formData.image) {
+            alert('Please upload your photograph.');
+            return;
+        }
+
         navigate('/relatives-details');
     };
 

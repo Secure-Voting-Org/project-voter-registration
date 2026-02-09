@@ -62,6 +62,26 @@ const IdentityCheck = () => {
     };
 
     const handleNext = () => {
+        if (!formData.state) {
+            alert('Please select a State.');
+            return;
+        }
+        if (!formData.district) {
+            alert('Please select a District.');
+            return;
+        }
+
+        if (constituencyType === 'assembly') {
+            if (!formData.assemblyConstituency) {
+                alert('Please select an Assembly Constituency.');
+                return;
+            }
+        } else if (constituencyType === 'parliamentary') {
+            // Placeholder for future implementation if PC selection is enabled
+            alert('Parliamentary Constituency selection is not fully implemented yet. Please select Assembly Constituency.');
+            return;
+        }
+
         // Save current state to global store before navigating
         updateFormData({ constituencyType });
         navigate('/personal-details');

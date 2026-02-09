@@ -147,6 +147,14 @@ const ContactDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
+                            if (!formData.mobileNumber) {
+                                alert('Please enter a mobile number.');
+                                return;
+                            }
+                            if (formData.mobileNumber.length !== 10) {
+                                alert('Please enter a valid 10-digit mobile number.');
+                                return;
+                            }
                             updateFormData({ mobile: formData.mobileNumber, email: formData.emailId });
                             navigate('/aadhaar-details');
                         }}

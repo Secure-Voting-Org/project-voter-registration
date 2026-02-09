@@ -39,11 +39,11 @@ const Success = () => {
                         firstName: formData.firstName,
                         surname: formData.surname,
                         gender: formData.gender,
-                        dobDay: formData.dobDay || '01',
-                        dobMonth: formData.dobMonth || '01',
-                        dobYear: formData.dobYear || '2000',
+                        dobDay: formData.dob ? formData.dob.split('-')[2] : '01',
+                        dobMonth: formData.dob ? formData.dob.split('-')[1] : '01',
+                        dobYear: formData.dob ? formData.dob.split('-')[0] : '2000',
 
-                        assemblyConstituency: formData.constituencyName,
+                        assemblyConstituency: formData.assemblyConstituency,
 
                         mobileSelf: formData.mobileSelf,
                         mobileNumber: formData.mobileNumber,
@@ -53,12 +53,12 @@ const Success = () => {
                         email: formData.emailId,
                         emailRelative: formData.emailRelative,
 
-                        houseNo: '000',
-                        streetArea: 'Street',
-                        villageTown: formData.declVillage,
+                        houseNo: formData.houseNo,
+                        streetArea: formData.streetClass,
+                        villageTown: formData.village, // Use Present Address village, not birth place
                         district: formData.district,
                         state: formData.state,
-                        pincode: '000000',
+                        pincode: formData.pinCode,
 
                         relativeName: formData.relativeName,
                         relativeSurname: formData.relativeSurname,
@@ -68,8 +68,8 @@ const Success = () => {
                         disabilityCategories: formData.disabilityCategories,
 
                         image: formData.image,
-                        dobProofFile: null,
-                        addressProofFile: null,
+                        dobProofFile: formData.dobProofFile,
+                        addressProofFile: formData.addressProofFile,
                         disabilityFile: formData.disabilityFile
                     }
                 };

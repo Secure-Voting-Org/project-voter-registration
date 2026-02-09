@@ -130,6 +130,14 @@ const DateOfBirthDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
+                            if (!formData.dob) {
+                                alert('Please enter your Date of Birth.');
+                                return;
+                            }
+                            if (!formData.dobProofFile) {
+                                alert('Please upload a document for proof of Date of Birth.');
+                                return;
+                            }
                             updateFormData({ dob: formData.dob });
                             navigate('/present-address-details');
                         }}

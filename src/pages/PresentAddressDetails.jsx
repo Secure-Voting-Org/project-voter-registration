@@ -245,6 +245,18 @@ const PresentAddressDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
+                            // Validation
+                            const requiredFields = ['houseNo', 'streetClass', 'village', 'postOffice', 'pinCode', 'tehsil', 'addressState', 'addressDistrict'];
+                            for (const field of requiredFields) {
+                                if (!formData[field]) {
+                                    alert(`Please fill the ${field} field.`);
+                                    return;
+                                }
+                            }
+                            if (!formData.addressProofFile) {
+                                alert('Please upload a document for proof of residence.');
+                                return;
+                            }
                             // Construct full address string
                             const fullAddress = `${formData.houseNo}, ${formData.streetClass}, ${formData.village}, ${formData.postOffice}, PIN: ${formData.pinCode}, ${formData.tehsil}, ${formData.addressDistrict}, ${formData.addressState}`;
                             updateFormData({ address: fullAddress });

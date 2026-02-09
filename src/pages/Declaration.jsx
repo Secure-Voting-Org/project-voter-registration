@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
@@ -7,7 +7,13 @@ import { locationData } from '../data/locationData';
 const Declaration = () => {
     const navigate = useNavigate();
     const { formData, updateFormData } = useFormContext();
-    const [date] = useState('01 | 02 | 2026'); // Static date for now
+    const [date, setDate] = useState('');
+
+    useEffect(() => {
+        const today = new Date();
+        const formattedDate = `${String(today.getDate()).padStart(2, '0')} | ${String(today.getMonth() + 1).padStart(2, '0')} | ${today.getFullYear()}`;
+        setDate(formattedDate);
+    }, []);
 
     return (
         <ECILayout activeStep="K">

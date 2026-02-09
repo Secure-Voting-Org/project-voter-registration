@@ -74,6 +74,10 @@ const GenderDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
+                            if (!formData.gender) {
+                                alert('Please select your gender.');
+                                return;
+                            }
                             updateFormData({ gender: formData.gender });
                             navigate('/dob-details');
                         }}

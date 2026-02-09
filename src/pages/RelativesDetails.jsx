@@ -82,7 +82,15 @@ const RelativesDetails = () => {
                     <button
                         type="button"
                         onClick={() => {
-                            const fullRelativeName = `${formData.relativeName} ${formData.relativeSurname}`.trim();
+                            if (!formData.relationType) {
+                                alert('Please select a relation type.');
+                                return;
+                            }
+                            if (!formData.relativeName) {
+                                alert('Please enter the relative\'s name.');
+                                return;
+                            }
+                            const fullRelativeName = `${formData.relativeName} ${formData.relativeSurname || ''}`.trim();
                             updateFormData({ relativeName: fullRelativeName, relativeType: formData.relationType });
                             navigate('/contact-details');
                         }}

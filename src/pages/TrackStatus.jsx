@@ -2,35 +2,31 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 
+import axios from 'axios';
+
 const TrackStatus = () => {
     const navigate = useNavigate();
     const [referenceId, setReferenceId] = React.useState('');
     const [statusResult, setStatusResult] = React.useState(null);
     const [error, setError] = React.useState('');
     const [loading, setLoading] = React.useState(false);
-    // Dynamic import to avoid top-level axios dependency if not installed in this file scope (though typically it is)
-    // Assuming axios is available
-    const [axios, setAxios] = React.useState(null);
-
-    React.useEffect(() => {
-        import('axios').then(module => setAxios(module.default));
-    }, []);
 
     const handleTrack = async () => {
         if (!referenceId) return;
-        if (!axios) return;
 
         setLoading(true);
         setError('');
         setStatusResult(null);
 
         try {
+            console.log(`Fetching status for: ${referenceId}`);
             const response = await axios.get(`http://localhost:5000/api/application/status/${referenceId}`);
             if (response.data.success) {
                 setStatusResult(response.data);
             }
         } catch (err) {
-            setError(err.response?.data?.error || 'Failed to fetch status. Check Reference ID.');
+            console.error("Track Status Error:", err);
+            setError(err.response?.data?.error || err.message || 'Failed to fetch status. Check Reference ID.');
         } finally {
             setLoading(false);
         }
@@ -68,17 +64,35 @@ const TrackStatus = () => {
                     )}
 
                     {statusResult && (
-                        <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg text-left">
-                            <h4 className="font-bold text-green-800 mb-2">Application Found</h4>
-                            <div className="text-sm text-gray-700 space-y-1">
-                                <p><span className="font-semibold">Name:</span> {statusResult.name}</p>
-                                <p><span className="font-semibold">Constituency:</span> {statusResult.constituency}</p>
-                                <p className="mt-2">
-                                    <span className="font-semibold">Status: </span>
-                                    <span className={`font-bold ${statusResult.status === 'APPROVED' ? 'text-green-600' : statusResult.status === 'REJECTED' ? 'text-red-600' : 'text-yellow-600'}`}>
-                                        {statusResult.status}
-                                    </span>
-                                </p>
+                        <div className="mt-6 p-4 bg-white border border-gray-200 rounded-lg text-left shadow-sm">
+                            <h4 className="font-bold text-gray-800 mb-3 border-b pb-2">Application Details</h4>
+                            <div className="text-sm text-gray-700 space-y-2">
+                                <p><span className="font-semibold w-24 inline-block">Name:</span> {statusResult.name}</p>
+                                <p><span className="font-semibold w-24 inline-block">Constituency:</span> {statusResult.constituency}</p>
+
+                                <div className="mt-3 pt-2 border-t border-dashed">
+                                    <p className="flex items-center">
+                                        <span className="font-semibold w-24 inline-block">Status: </span>
+                                        <span className={`font-bold px-2 py-1 rounded text-xs ${statusResult.status === 'APPROVED' ? 'bg-green-100 text-green-700' :
+                                            statusResult.status === 'REJECTED' ? 'bg-red-100 text-red-700' :
+                                                'bg-yellow-100 text-yellow-700'
+                                            }`}>
+                                            {statusResult.status}
+                                        </span>
+                                    </p>
+
+                                    {statusResult.status === 'APPROVED' && (
+                                        <p className="mt-2 text-green-700 bg-green-50 p-2 rounded border border-green-100">
+                                            <span className="font-bold">EPIC Number:</span> {statusResult.voter_id}
+                                        </p>
+                                    )}
+
+                                    {statusResult.status === 'REJECTED' && (
+                                        <p className="mt-2 text-red-700 bg-red-50 p-2 rounded border border-red-100">
+                                            <span className="font-bold">Reason:</span> {statusResult.rejection_reason || 'No reason provided'}
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     )}

@@ -6,6 +6,21 @@ import { useFormContext } from '../context/FormContext';
 const CaptchaDetails = () => {
     const navigate = useNavigate();
     const { formData, updateFormData } = useFormContext();
+    const [captchaCode, setCaptchaCode] = React.useState('');
+
+    const generateCaptcha = () => {
+        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let captcha = '';
+        for (let i = 0; i < 6; i++) {
+            captcha += chars[Math.floor(Math.random() * chars.length)];
+        }
+        setCaptchaCode(captcha);
+        updateFormData({ generatedCaptcha: captcha }); // Store in context if needed for validation later
+    };
+
+    React.useEffect(() => {
+        generateCaptcha();
+    }, []);
 
     return (
         <ECILayout activeStep="L">
@@ -18,9 +33,14 @@ const CaptchaDetails = () => {
                 <div className="flex items-center gap-4">
                     <div className="border border-gray-300 p-2 bg-white rounded select-none font-serif tracking-widest text-2xl text-gray-500 w-40 text-center italic">
                         {/* Placeholder Captcha */}
-                        gyg7gu
+                        {captchaCode}
                     </div>
-                    <button type="button" className="text-gray-500 hover:text-blue-600">
+                    <button
+                        type="button"
+                        onClick={generateCaptcha}
+                        className="text-gray-500 hover:text-blue-600 focus:outline-none"
+                        title="Refresh Captcha"
+                    >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                     </button>
                     <button type="button" className="text-gray-500 hover:text-blue-600">
