@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5001/api/voter';
+const API_URL = '/api/voter';
 
 export const authService = {
     login: async (mobile, password) => {
