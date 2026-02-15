@@ -23,9 +23,13 @@ const Success = () => {
 
             try {
                 // Determine port - assuming backend is on 5000 based on previous context
-                const API_URL = 'http://localhost:5000/api/registration/submit';
+                const API_URL = '/api/registration/submit';
 
                 // Basic validation
+                if (!formData.faceDescriptor) {
+                    throw new Error("Biometric data missing. Please complete face enrollment.");
+                }
+
                 if (!formData.firstName && !formData.aadhaarNumber) {
                     // If context is empty (reload), show error or redirect
                     // For now, allow dry run or handle error
@@ -67,7 +71,7 @@ const Success = () => {
                         disabilityOtherSpec: formData.disabilityOtherSpec,
                         disabilityCategories: formData.disabilityCategories,
 
-                        image: formData.image,
+                        image: formData.image, // Ensure this matches FormContext key
                         dobProofFile: formData.dobProofFile,
                         addressProofFile: formData.addressProofFile,
                         disabilityFile: formData.disabilityFile

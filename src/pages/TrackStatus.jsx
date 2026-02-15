@@ -20,7 +20,7 @@ const TrackStatus = () => {
 
         try {
             console.log(`Fetching status for: ${referenceId}`);
-            const response = await axios.get(`http://localhost:5000/api/application/status/${referenceId}`);
+            const response = await axios.get(`/api/application/status/${referenceId}`);
             if (response.data.success) {
                 setStatusResult(response.data);
             }

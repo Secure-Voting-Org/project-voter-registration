@@ -92,6 +92,7 @@ export const FormProvider = ({ children }) => {
     const handleFileChange = async (e, fieldName) => {
         const file = e.target.files[0];
         if (file) {
+            console.log(`Processing file for ${fieldName}:`, file.name);
             const reader = new FileReader();
             reader.onloadend = () => {
                 updateFormData({
