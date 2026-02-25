@@ -1,7 +1,9 @@
+import API_BASE from '../config/api';
+
 // Helper to fetch constituencies and transform them into locationData structure
 export const fetchLocationData = async () => {
     try {
-        const response = await fetch('/api/constituencies');
+        const response = await fetch(`${API_BASE}/api/constituencies`);
         if (!response.ok) throw new Error('Failed to fetch data');
         const data = await response.json();
 
