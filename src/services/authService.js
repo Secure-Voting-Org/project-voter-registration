@@ -1,4 +1,5 @@
-const API_URL = '/api/voter';
+import API_BASE from '../config/api';
+const API_URL = `${API_BASE}/api/voter`;
 
 export const authService = {
     login: async (mobile, password) => {

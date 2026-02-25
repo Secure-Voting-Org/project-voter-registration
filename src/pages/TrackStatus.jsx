@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 
 import axios from 'axios';
+import API_BASE from '../config/api';
 
 const TrackStatus = () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ const TrackStatus = () => {
 
         try {
             console.log(`Fetching status for: ${referenceId}`);
-            const response = await axios.get(`/api/application/status/${referenceId}`);
+            const response = await axios.get(`${API_BASE}/api/application/status/${referenceId}`);
             if (response.data.success) {
                 setStatusResult(response.data);
             }

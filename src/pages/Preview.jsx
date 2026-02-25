@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ECILayout from '../components/ECILayout';
 import { useFormContext } from '../context/FormContext';
 import axios from 'axios';
+import API_BASE from '../config/api';
 
 const Preview = () => {
     const { formData } = useFormContext();
@@ -15,7 +16,7 @@ const Preview = () => {
         setError('');
 
         try {
-            const response = await axios.post('/api/registration/submit', {
+            const response = await axios.post(`${API_BASE}/api/registration/submit`, {
                 aadhaar: formData.aadhaarNumber || 'NO_AADHAAR',
                 formData: formData, // Contains Base64 files
                 faceDescriptor: formData.faceDescriptor
