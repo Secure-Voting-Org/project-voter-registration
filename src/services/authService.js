@@ -10,6 +10,12 @@ export const authService = {
                 body: JSON.stringify({ mobile, password })
             });
             const data = await response.json();
+
+            // Store JWT in web localStorage
+            if (data.success && data.token) {
+                localStorage.setItem('voter_token', data.token);
+            }
+
             return data;
         } catch (error) {
             return { success: false, error: 'Network error' };

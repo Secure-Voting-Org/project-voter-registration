@@ -21,7 +21,12 @@ const TrackStatus = () => {
 
         try {
             console.log(`Fetching status for: ${referenceId}`);
-            const response = await axios.get(`${API_BASE}/api/application/status/${referenceId}`);
+
+            const token = localStorage.getItem('voter_token');
+            const response = await axios.get(`${API_BASE}/api/application/status/${referenceId}`, {
+                headers: token ? { Authorization: `Bearer ${token}` } : {}
+            });
+
             if (response.data.success) {
                 setStatusResult(response.data);
             }
